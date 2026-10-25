@@ -1,18 +1,22 @@
 "use strict";
 
-/* AMYLI website functionality */
+/* ==========================================================================
+   INITIALIZATION
+   ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
     initializeNavigation();
     initializeTheme();
     initializeLanguage();
     initializeTeam();
-    initializeProgramModals(); // New function for program popups
+    initializeProgramModals();
     initializeContactForm();
     initializeBackToTop();
     initializeFooterYear();
 });
 
-/* Navigation */
+/* ==========================================================================
+   NAVIGATION
+   ========================================================================== */
 function initializeNavigation() {
     const menuToggle = document.getElementById("menuToggle");
     const mainNav = document.getElementById("mainNav");
@@ -30,6 +34,7 @@ function initializeNavigation() {
     dropdowns.forEach((dropdown) => {
         const trigger = dropdown.querySelector(".nav-drop-trigger");
         if (!trigger) return;
+        
         trigger.addEventListener("click", (event) => {
             event.stopPropagation();
             const shouldOpen = !dropdown.classList.contains("open");
@@ -89,7 +94,9 @@ function initializeNavigation() {
     }
 }
 
-/* Theme toggle */
+/* ==========================================================================
+   THEME TOGGLE
+   ========================================================================== */
 function initializeTheme() {
     const toggle = document.getElementById("themeToggle");
     if (!toggle) return;
@@ -112,11 +119,16 @@ function initializeTheme() {
         toggle.textContent = isDark ? "☀" : "☾";
         toggle.setAttribute("aria-pressed", String(isDark));
         toggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
-        try { localStorage.setItem("amyli-theme", theme); } catch (error) { /* Theme remains active */ }
+        
+        try { 
+            localStorage.setItem("amyli-theme", theme); 
+        } catch (error) { /* Theme remains active */ }
     }
 }
 
-/* LANGUAGE SELECTOR: Full translation support */
+/* ==========================================================================
+   LANGUAGE SELECTOR
+   ========================================================================== */
 const translations = {
     en: {
         announcement_text: "Empower. Adapt. Lead. Succeed.",
@@ -410,10 +422,10 @@ const translations = {
         form_status: "Эта форма открывает ваше почтовое приложение. Она не сохраняет сообщения.",
         footer_desc: "Образовывать. Соединять. Расти. Расширяем возможности молодых людей превращать свой потенциал в значимый прогресс.",
         footer_explore: "Исследовать",
-        footer_about: "Об AMYLI",
+        footer_about: "Oб AMYLI",
         footer_programmes: "Наши программы",
         footer_get_involved: "Принять участие",
-        footer_rights: "Все права защищены.",
+        footer_rights: "Bce права защищены.",
         footer_back_top: "Наверх ↑"
     },
     fr: {
@@ -768,7 +780,9 @@ function initializeLanguage() {
     }
 }
 
-/* TEAM PROFILES */
+/* ==========================================================================
+   TEAM PROFILES & CAROUSEL
+   ========================================================================== */
 function initializeTeam() {
     const teamRow = document.getElementById("teamRow");
     if (!teamRow) return;
@@ -850,25 +864,42 @@ function initializeTeam() {
         card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(); } });
     });
 
+    // Carousel Navigation Logic
     const prevBtn = document.getElementById("teamPrevBtn");
     const nextBtn = document.getElementById("teamNextBtn");
 
     if (prevBtn && nextBtn) {
-        const scrollAmount = 280;
-        prevBtn.addEventListener("click", () => teamRow.scrollBy({ left: -scrollAmount, behavior: "smooth" }));
-        nextBtn.addEventListener("click", () => teamRow.scrollBy({ left: scrollAmount, behavior: "smooth" }));
+        // Dynamically calculate scroll amount based on screen size
+        const getScrollAmount = () => {
+            if (window.innerWidth <= 380) return 210; // Very small phones
+            if (window.innerWidth <= 540) return 240; // Small phones
+            if (window.innerWidth <= 760) return 260; // Tablets
+            return 280; // Desktops
+        };
+
+        prevBtn.addEventListener("click", () => {
+            teamRow.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+        });
+        
+        nextBtn.addEventListener("click", () => {
+            teamRow.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+        });
 
         const updateButtons = () => {
             const maxScrollLeft = teamRow.scrollWidth - teamRow.clientWidth;
             prevBtn.disabled = teamRow.scrollLeft <= 0;
             nextBtn.disabled = teamRow.scrollLeft >= maxScrollLeft - 1;
         };
+        
         teamRow.addEventListener("scroll", updateButtons);
-        setTimeout(updateButtons, 100);
+        setTimeout(updateButtons, 100); // Initial check
         window.addEventListener("resize", updateButtons);
     }
 }
 
+/* ==========================================================================
+   TEAM PROFILE MODAL
+   ========================================================================== */
 function openProfile(person, opener) {
     closeProfile();
     const overlay = document.createElement("div");
@@ -965,7 +996,9 @@ function closeProfile() {
     window.currentActiveProfile = null;
 }
 
-/* NEW: Program Modals Logic */
+/* ==========================================================================
+   PROGRAM MODALS
+   ========================================================================== */
 function initializeProgramModals() {
     const modalOverlay = document.getElementById("programModalOverlay");
     const modalTitle = document.getElementById("modalTitle");
@@ -1015,7 +1048,9 @@ function initializeProgramModals() {
     });
 }
 
-/* Contact form */
+/* ==========================================================================
+   CONTACT FORM
+   ========================================================================== */
 function initializeContactForm() {
     const form = document.getElementById("contactForm");
     const status = document.getElementById("formStatus");
@@ -1059,7 +1094,9 @@ function initializeContactForm() {
     }
 }
 
-/* Back-to-top button */
+/* ==========================================================================
+   BACK TO TOP & FOOTER
+   ========================================================================== */
 function initializeBackToTop() {
     const button = document.getElementById("backToTop");
     if (!button) return;
@@ -1069,7 +1106,6 @@ function initializeBackToTop() {
     button.addEventListener("click", () => { window.scrollTo({ top: 0, behavior: "smooth" }); });
 }
 
-/* Footer year */
 function initializeFooterYear() {
     const year = document.getElementById("currentYear");
     if (year) { year.textContent = new Date().getFullYear(); }
