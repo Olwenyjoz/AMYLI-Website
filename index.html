@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#08264f">
+    <meta name="description" content="AMYLI empowers students, young professionals, aspiring researchers and emerging leaders through academic mentorship, education, research, leadership and community engagement.">
+    <title>AMYLI | Empower. Adapt. Lead. Succeed.</title>
+
+    <link rel="icon" type="image/png" href="assets/images/logo-removebg.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Announcement -->
+<div class="announcement">
+    <p data-i18n="announcement_text">Empower. Adapt. Lead. Succeed.</p>
+    <a href="#get-involved" data-i18n="announcement_link">Be part of the journey ↗</a>
+</div>
+
+<!-- Header and navigation -->
+<header class="site-header" id="top">
+    <div class="container nav-wrap">
+
+        <a class="brand" href="#home" aria-label="AMYLI home">
+            <img src="assets/images/amyli-logo.png" alt="AMYLI logo">
+            <span class="brand-text">
+                <strong>AMYLI</strong>
+                <small data-i18n="brand_subtitle">Academic Mentorship &amp; Youth Leadership Initiative</small>
+            </span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" type="button"
+            aria-label="Open navigation" aria-expanded="false" aria-controls="mainNav">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+            <a href="#home" data-i18n="nav_home">Home</a>
+
+            <div class="nav-dropdown">
+                <button class="nav-drop-trigger" type="button" aria-expanded="false">
+                    <span data-i18n="nav_about">About</span><span class="chevron" aria-hidden="true"></span>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="#about" data-i18n="nav_about_who">Who we are</a>
+                    <a href="#mission" data-i18n="nav_about_mission">Mission and vision</a>
+                    <a href="#values" data-i18n="nav_about_values">Our core values</a>
+                    <a href="#journey" data-i18n="nav_about_journey">Our development journey</a>
+                    <a href="#team" data-i18n="nav_about_team">Our team</a>
+                </div>
+            </div>
+
+            <div class="nav-dropdown">
+                <button class="nav-drop-trigger" type="button" aria-expanded="false">
+                    <span data-i18n="nav_programmes">Programmes</span><span class="chevron" aria-hidden="true"></span>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="#education" data-i18n="nav_prog_education">Academic mentorship</a>
+                    <a href="#adaptation" data-i18n="nav_prog_adaptation">Student adaptation</a>
+                    <a href="#wellbeing" data-i18n="nav_prog_wellbeing">Health and personal development</a>
+                    <a href="#research" data-i18n="nav_prog_research">Research development</a>
+                    <a href="#leadership" data-i18n="nav_prog_leadership">Leadership and careers</a>
+                    <a href="#workshops" data-i18n="nav_prog_workshops">Workshops and events</a>
+                    <a href="#community" data-i18n="nav_prog_community">Community engagement</a>
+                </div>
+            </div>
+
+            <div class="nav-dropdown">
+                <button class="nav-drop-trigger" type="button" aria-expanded="false">
+                    <span data-i18n="nav_explore">Explore</span><span class="chevron" aria-hidden="true"></span>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="#stories" data-i18n="nav_exp_stories">Learning resources</a>
+                    <a href="#digital-platform" data-i18n="nav_exp_platform">Digital platform</a>
+                    <a href="#impact" data-i18n="nav_exp_impact">Our SDG contribution</a>
+                    <a href="#partners" data-i18n="nav_exp_partners">Partnerships</a>
+                    <a href="#events" data-i18n="nav_exp_events">Events and activities</a>
+                </div>
+            </div>
+
+            <a href="#get-involved" data-i18n="nav_get_involved">Get involved</a>
+            <a href="#contact" data-i18n="nav_contact">Contact</a>
+        </nav>
+
+        <div class="nav-tools">
+            <div class="language-switch" aria-label="Select language">
+                <button type="button" class="language-button active" data-language="en" aria-pressed="true">ENG</button>
+                <button type="button" class="language-button" data-language="ru" aria-pressed="false">RUS</button>
+                <button type="button" class="language-button" data-language="fr" aria-pressed="false">FRE</button>
+                <button type="button" class="language-button" data-language="es" aria-pressed="false">ESP</button>
+            </div>
+            <button class="theme-toggle" id="themeToggle" type="button"
+                aria-label="Switch to dark mode" aria-pressed="false">☾</button>
+        </div>
+    </div>
+</header>
+
+<main id="main">
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-grid">
+            <div class="hero-copy">
+                <span class="eyebrow" data-i18n="hero_eyebrow">Academic mentorship and youth leadership</span>
+                <h1 data-i18n="hero_title">Empower minds.<br><em>Shape futures.</em></h1>
+                <p data-i18n="hero_desc">
+                    Building a generation of knowledgeable, confident and socially responsible young leaders.
+                </p>
+                <div class="hero-actions">
+                    <a href="#about" class="button" data-i18n="hero_btn_discover">Discover AMYLI ↗</a>
+                    <a href="#programs" class="text-link" data-i18n="hero_btn_programmes">Explore our programmes</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-image-twisted">
+                    <img class="hero-image"
+                        src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=800&q=85"
+                        alt="Young people learning and collaborating">
+                </div>
+                <div class="hero-image-label">
+                    <span class="label-dot"></span>
+                    <span data-i18n="hero_label">Learning. Leadership. Opportunity.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About AMYLI -->
+    <section class="section about-section" id="about">
+        <div class="container about-grid">
+            <div class="about-logo">
+                <img src="assets/images/who-we-are.jpg" alt="AMYLI organisation logo">
+                <span data-i18n="about_logo_text">Empower. Adapt. Lead. Succeed.</span>
+            </div>
+
+            <div class="about-content">
+                <span class="section-kicker" data-i18n="about_kicker">WHO WE ARE</span>
+                <h2 data-i18n="about_title">Building knowledgeable, confident and <em>responsible leaders.</em></h2>
+                <p data-i18n="about_p1">
+                    AMYLI (Academic Mentorship &amp; Youth Leadership Initiative) is a youth-focused, non-profit and non-political initiative dedicated to empowering students, young professionals, aspiring researchers, and emerging leaders through academic mentorship, education, personal development, research support, leadership training, and community engagement.
+                </p>
+                <p data-i18n="about_p2">
+                    We believe that every young person deserves access to guidance, opportunities, knowledge, and supportive networks that enable them to realise their potential. Through mentorship, educational programmes, webinars, workshops, research activities, and collaborative partnerships, AMYLI helps young people navigate academic life, develop practical skills, build meaningful connections, and prepare for successful professional and personal futures.
+                </p>
+                <a href="#mission" class="underlined-link" data-i18n="about_link">Discover our mission ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission and vision -->
+    <section class="mission-section" id="mission">
+        <div class="container mission-grid">
+            <article class="mission-card">
+                <span class="section-kicker" data-i18n="mission_kicker">OUR MISSION</span>
+                <h2 data-i18n="mission_title">Empowering people through learning.</h2>
+                <p data-i18n="mission_desc">
+                    To empower students and young professionals through accessible academic mentorship, education, research development, leadership training, and community engagement, enabling them to reach their full potential and contribute meaningfully to society.
+                </p>
+            </article>
+
+            <article class="mission-card vision-card">
+                <span class="section-kicker" data-i18n="vision_kicker">OUR VISION</span>
+                <h2 data-i18n="vision_title">A generation ready to lead.</h2>
+                <p data-i18n="vision_desc">
+                    To build a generation of academically strong, socially responsible, internationally minded, and confident young professionals capable of contributing positively to their communities and countries.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Core values -->
+    <section class="section values-section" id="values">
+        <div class="container">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker" data-i18n="values_kicker">WHAT GUIDES US</span>
+                    <h2 data-i18n="values_title">Our core <em>values.</em></h2>
+                </div>
+                <p data-i18n="values_desc">
+                    Our values shape how we learn, work together, serve communities and support the next generation.
+                </p>
+            </div>
+
+            <div class="values-grid">
+                <article class="value-card">
+                    <span class="value-number">01</span>
+                    <h3 data-i18n="value_1_title">Academic excellence</h3>
+                    <p data-i18n="value_1_desc">Encouraging lifelong learning, intellectual curiosity, critical thinking, and the pursuit of knowledge.</p>
+                </article>
+                <article class="value-card">
+                    <span class="value-number">02</span>
+                    <h3 data-i18n="value_2_title">Mentorship and mutual support</h3>
+                    <p data-i18n="value_2_desc">Connecting individuals through meaningful relationships that promote guidance, encouragement, knowledge-sharing, and personal growth.</p>
+                </article>
+                <article class="value-card">
+                    <span class="value-number">03</span>
+                    <h3 data-i18n="value_3_title">Youth empowerment</h3>
+                    <p data-i18n="value_3_desc">Equipping young people with the confidence, skills, and opportunities to take initiative and become active contributors to society.</p>
+                </article>
+                <article class="value-card">
+                    <span class="value-number">04</span>
+                    <h3 data-i18n="value_4_title">Inclusion and equal opportunity</h3>
+                    <p data-i18n="value_4_desc">Promoting a welcoming environment where young people from different educational, cultural, linguistic, and socioeconomic backgrounds can participate and develop.</p>
+                </article>
+                <article class="value-card">
+                    <span class="value-number">05</span>
+                    <h3 data-i18n="value_5_title">Leadership and responsibility</h3>
+                    <p data-i18n="value_5_desc">Encouraging ethical decision-making, accountability, initiative, and service-oriented leadership.</p>
+                </article>
+                <article class="value-card">
+                    <span class="value-number">06</span>
+                    <h3 data-i18n="value_6_title">Research and innovation</h3>
+                    <p data-i18n="value_6_desc">Supporting scientific curiosity, evidence-based thinking, research skills, and the development of innovative solutions to social challenges.</p>
+                </article>
+                <article class="value-card">
+                    <span class="value-number">07</span>
+                    <h3 data-i18n="value_7_title">Volunteerism and community service</h3>
+                    <p data-i18n="value_7_desc">Inspiring young people to use their time, knowledge, and skills to support others and improve their communities.</p>
+                </article>
+                <article class="value-card">
+                    <span class="value-number">08</span>
+                    <h3 data-i18n="value_8_title">Integrity and respect</h3>
+                    <p data-i18n="value_8_desc">Upholding professional ethics, respect, and intercultural understanding.</p>
+                </article>
+                <article class="value-card">
+                    <span class="value-number">09</span>
+                    <h3 data-i18n="value_9_title">Partnership and international cooperation</h3>
+                    <p data-i18n="value_9_desc">Building constructive relationships among universities, educational institutions, professional communities, civil society, and youth organisations.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programmes (Updated to compact cards + modal) -->
+    <section class="section programs-section" id="programs">
+        <div class="container">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker" data-i18n="programs_kicker">OUR PROGRAMMES</span>
+                    <h2 data-i18n="programs_title">Turning potential into <em>progress.</em></h2>
+                </div>
+                <p data-i18n="programs_desc">
+                    We connect young people with knowledge, guidance, skills and supportive networks to encourage academic, professional and personal development.
+                </p>
+            </div>
+
+            <!-- Grid of smaller cards -->
+            <div class="program-grid">
+                <article class="program-card">
+                    <div class="program-icon" aria-hidden="true">✦</div>
+                    <h3 data-i18n="prog_1_title">Academic mentorship</h3>
+                    <p class="program-summary" data-i18n="prog_1_summary">Connecting students with experienced mentors for academic guidance.</p>
+                    <button type="button" class="card-link read-more-btn" data-target="prog1">Read more ↗</button>
+                    <!-- Hidden full description -->
+                    <div id="prog1-desc" class="hidden-desc" data-i18n="prog_1_desc">
+                        AMYLI connects students and young professionals with experienced mentors, researchers, educators, and other suitably qualified individuals who can provide guidance based on participants' interests, goals, and development needs.
+                    </div>
+                </article>
+
+                <article class="program-card">
+                    <div class="program-icon" aria-hidden="true">◎</div>
+                    <h3 data-i18n="prog_2_title">Student adaptation</h3>
+                    <p class="program-summary" data-i18n="prog_2_summary">Helping students navigate university life and new environments.</p>
+                    <button type="button" class="card-link read-more-btn" data-target="prog2">Read more ↗</button>
+                    <div id="prog2-desc" class="hidden-desc" data-i18n="prog_2_desc">
+                        Beginning university or studying in a new country can be a significant transition. AMYLI helps students better understand academic expectations, navigate university life, build social connections, and develop the confidence to participate actively in their educational communities.
+                    </div>
+                </article>
+
+                <article class="program-card">
+                    <div class="program-icon" aria-hidden="true">♡</div>
+                    <h3 data-i18n="prog_3_title">Health & wellbeing</h3>
+                    <p class="program-summary" data-i18n="prog_3_summary">Promoting mental well-being, stress management, and healthy habits.</p>
+                    <button type="button" class="card-link read-more-btn" data-target="prog3">Read more ↗</button>
+                    <div id="prog3-desc" class="hidden-desc" data-i18n="prog_3_desc">
+                        We recognise that academic success and personal growth are closely connected to physical health, mental well-being, emotional resilience, and healthy daily habits. AMYLI promotes awareness of stress management, burnout prevention, time management, healthy lifestyles, self-confidence, and work-life balance.
+                    </div>
+                </article>
+
+                <article class="program-card">
+                    <div class="program-icon" aria-hidden="true">⌕</div>
+                    <h3 data-i18n="prog_4_title">Research development</h3>
+                    <p class="program-summary" data-i18n="prog_4_summary">Strengthening academic writing, methodology, and scientific skills.</p>
+                    <button type="button" class="card-link read-more-btn" data-target="prog4">Read more ↗</button>
+                    <div id="prog4-desc" class="hidden-desc" data-i18n="prog_4_desc">
+                        AMYLI encourages young people to develop their research interests, strengthen academic writing skills, and participate in scientific and intellectual activities.
+                    </div>
+                </article>
+
+                <article class="program-card">
+                    <div class="program-icon" aria-hidden="true">↗</div>
+                    <h3 data-i18n="prog_5_title">Leadership & careers</h3>
+                    <p class="program-summary" data-i18n="prog_5_summary">Developing practical leadership and professional skills for future careers.</p>
+                    <button type="button" class="card-link read-more-btn" data-target="prog5">Read more ↗</button>
+                    <div id="prog5-desc" class="hidden-desc" data-i18n="prog_5_desc">
+                        AMYLI supports the development of practical leadership and professional skills that help young people transition from education into meaningful careers and community leadership.
+                    </div>
+                </article>
+
+                <article class="program-card">
+                    <div class="program-icon" aria-hidden="true">▦</div>
+                    <h3 data-i18n="prog_6_title">Workshops & events</h3>
+                    <p class="program-summary" data-i18n="prog_6_summary">Bringing together students, mentors, and professionals to exchange knowledge.</p>
+                    <button type="button" class="card-link read-more-btn" data-target="prog6">Read more ↗</button>
+                    <div id="prog6-desc" class="hidden-desc" data-i18n="prog_6_desc">
+                        AMYLI organises educational activities designed to bring together students, mentors, academics, researchers, professionals, volunteers, and youth leaders.
+                    </div>
+                </article>
+
+                <article class="program-card">
+                    <div class="program-icon" aria-hidden="true">◇</div>
+                    <h3 data-i18n="prog_7_title">Community engagement</h3>
+                    <p class="program-summary" data-i18n="prog_7_summary">Encouraging volunteering and collaborative projects that respond to real needs.</p>
+                    <button type="button" class="card-link read-more-btn" data-target="prog7">Read more ↗</button>
+                    <div id="prog7-desc" class="hidden-desc" data-i18n="prog_7_desc">
+                        We believe that meaningful development includes a commitment to serving others. AMYLI encourages young people to participate in volunteering, peer support, educational outreach, community projects, and collaborative activities that respond to real needs.
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development journey (Updated with shadow and float) -->
+    <section class="section journey-section" id="journey">
+        <div class="container">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker" data-i18n="journey_kicker">THE AMYLI DEVELOPMENT JOURNEY</span>
+                    <h2 data-i18n="journey_title">From learning to <em>leadership.</em></h2>
+                </div>
+                <p data-i18n="journey_desc">
+                    Our approach to youth development is guided by six interconnected stages.
+                </p>
+            </div>
+
+            <div class="journey-grid">
+                <article class="journey-card">
+                    <span>01</span>
+                    <h3 data-i18n="journey_1_title">Adapt</h3>
+                    <p data-i18n="journey_1_desc">Understand new environments, navigate challenges, and develop the confidence to participate in academic and social communities.</p>
+                </article>
+                <article class="journey-card">
+                    <span>02</span>
+                    <h3 data-i18n="journey_2_title">Learn</h3>
+                    <p data-i18n="journey_2_desc">Acquire knowledge, strengthen academic skills, and embrace continuous personal and professional development.</p>
+                </article>
+                <article class="journey-card">
+                    <span>03</span>
+                    <h3 data-i18n="journey_3_title">Connect</h3>
+                    <p data-i18n="journey_3_desc">Build meaningful relationships with mentors, peers, educators, researchers, and professional networks.</p>
+                </article>
+                <article class="journey-card">
+                    <span>04</span>
+                    <h3 data-i18n="journey_4_title">Lead</h3>
+                    <p data-i18n="journey_4_desc">Develop initiative, communication, teamwork, decision-making, and responsible leadership.</p>
+                </article>
+                <article class="journey-card">
+                    <span>05</span>
+                    <h3 data-i18n="journey_5_title">Serve</h3>
+                    <p data-i18n="journey_5_desc">Apply knowledge and skills through volunteering, community engagement, and activities that benefit others.</p>
+                </article>
+                <article class="journey-card">
+                    <span>06</span>
+                    <h3 data-i18n="journey_6_title">Mentor</h3>
+                    <p data-i18n="journey_6_desc">Share experience, support others, and contribute to a sustainable culture of guidance, learning, and mutual growth.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- SDG Section (Updated smaller cards) -->
+    <section class="contribution-section" id="impact">
+        <div class="container">
+            <div class="contribution-heading">
+                <span class="section-kicker light-kicker" data-i18n="sdg_kicker">OUR AREAS OF CONTRIBUTION</span>
+                <h2 data-i18n="sdg_title">Learning today.<br><em>Contributing tomorrow.</em></h2>
+                <p data-i18n="sdg_desc">
+                    AMYLI's activities align with several United Nations Sustainable Development Goals (SDGs).
+                </p>
+            </div>
+
+            <div class="sdg-grid">
+                <article class="sdg-card sdg-4">
+                    <div class="sdg-symbol" aria-hidden="true">✎</div>
+                    <div class="sdg-content">
+                        <span class="sdg-number">SDG 04</span>
+                        <h3 data-i18n="sdg_4_title">Quality education</h3>
+                        <p data-i18n="sdg_4_desc">Supporting inclusive learning, academic development, mentorship, and lifelong learning opportunities.</p>
+                    </div>
+                </article>
+                <article class="sdg-card sdg-8">
+                    <div class="sdg-symbol" aria-hidden="true">↗</div>
+                    <div class="sdg-content">
+                        <span class="sdg-number">SDG 08</span>
+                        <h3 data-i18n="sdg_8_title">Decent work and economic growth</h3>
+                        <p data-i18n="sdg_8_desc">Strengthening employability, career readiness, professional skills, and youth leadership.</p>
+                    </div>
+                </article>
+                <article class="sdg-card sdg-10">
+                    <div class="sdg-symbol" aria-hidden="true">⇄</div>
+                    <div class="sdg-content">
+                        <span class="sdg-number">SDG 10</span>
+                        <h3 data-i18n="sdg_10_title">Reduced inequalities</h3>
+                        <p data-i18n="sdg_10_desc">Promoting inclusive access to mentorship, educational resources, and personal development opportunities.</p>
+                    </div>
+                </article>
+                <article class="sdg-card sdg-16">
+                    <div class="sdg-symbol" aria-hidden="true">◇</div>
+                    <div class="sdg-content">
+                        <span class="sdg-number">SDG 16</span>
+                        <h3 data-i18n="sdg_16_title">Peace, justice and strong institutions</h3>
+                        <p data-i18n="sdg_16_desc">Encouraging responsible leadership, accountability, ethical conduct, and constructive civic participation.</p>
+                    </div>
+                </article>
+                <article class="sdg-card sdg-17">
+                    <div class="sdg-symbol" aria-hidden="true">∞</div>
+                    <div class="sdg-content">
+                        <span class="sdg-number">SDG 17</span>
+                        <h3 data-i18n="sdg_17_title">Partnerships for the goals</h3>
+                        <p data-i18n="sdg_17_desc">Developing cooperation among educational institutions, civil society, professional communities, and youth organisations.</p>
+                    </div>
+                </article>
+                <article class="sdg-card sdg-3">
+                    <div class="sdg-symbol" aria-hidden="true">♡</div>
+                    <div class="sdg-content">
+                        <span class="sdg-number">SDG 03</span>
+                        <h3 data-i18n="sdg_3_title">Good health and well-being</h3>
+                        <p data-i18n="sdg_3_desc">Promoting health awareness, mental well-being, stress management, and healthy lifestyles.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="section team-section" id="team">
+        <div class="container">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker" data-i18n="team_kicker">THE PEOPLE BEHIND THE MISSION</span>
+                    <h2 data-i18n="team_title">People make the <em>mission.</em></h2>
+                </div>
+                <p data-i18n="team_desc">
+                    Meet the people who help advance AMYLI's work.
+                </p>
+            </div>
+
+            <div class="team-carousel-wrapper">
+                <button class="team-nav-btn team-nav-prev" id="teamPrevBtn" aria-label="Scroll left">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                
+                <div class="team-row" id="teamRow"></div>
+                
+                <button class="team-nav-btn team-nav-next" id="teamNextBtn" aria-label="Scroll right">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+            
+            <p class="team-note" data-i18n="team_note">
+                Only verified team information should be published.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact-section" id="contact">
+        <div class="container contact-grid">
+
+            <div class="contact-intro">
+                <span class="section-kicker" data-i18n="contact_kicker">GET IN TOUCH</span>
+                <h2 data-i18n="contact_title">Let's start a<br><em>conversation.</em></h2>
+                <p data-i18n="contact_desc">
+                    Have a question about mentorship, research, volunteering, educational activities or a potential partnership? Contact AMYLI.
+                </p>
+
+                <div class="contact-details">
+                    <div class="contact-detail">
+                        <span class="contact-icon" aria-hidden="true">✉</span>
+                        <div>
+                            <h3 data-i18n="contact_email_title">Email us</h3>
+                            <a id="contactEmailLink" href="mailto:info.amyli26@gmail.com">
+                                info.amyli26@gmail.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <span class="contact-icon" aria-hidden="true">📞</span>
+                        <div>
+                            <h3 data-i18n="contact_phone_title">Call us</h3>
+                            <a href="tel:+79775909960">+7 977 590-99-60</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <span class="contact-icon" aria-hidden="true">◎</span>
+                        <div>
+                            <h3 data-i18n="contact_focus_title">Our focus</h3>
+                            <p data-i18n="contact_focus_desc">Academic mentorship, education, research, leadership and community engagement.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-social">
+                    <h3 data-i18n="contact_social_title">Follow AMYLI</h3>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+                        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+                        <a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+                <h3 data-i18n="form_title">Send us a message</h3>
+                <p data-i18n="form_desc">Complete the form to prepare an email in your email application.</p>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName" data-i18n="form_name">Your name</label>
+                        <input id="fullName" name="fullName" type="text"
+                            autocomplete="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" data-i18n="form_email">Your email</label>
+                        <input id="email" name="email" type="email"
+                            autocomplete="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="topic" data-i18n="form_topic">Subject</label>
+                    <input id="topic" name="topic" type="text" placeholder="What is this about?" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message" data-i18n="form_message">Message</label>
+                    <textarea id="message" name="message" rows="3"
+                        placeholder="Write your message..." required></textarea>
+                </div>
+
+                <button type="submit" class="button form-submit" data-i18n="form_submit">
+                    Prepare email ↗
+                </button>
+
+                <p class="form-status" id="formStatus" role="status" aria-live="polite"
+                   data-i18n="form_status">
+                    This form opens your email application. It does not store messages.
+                </p>
+            </form>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container footer-main">
+
+        <div class="footer-brand">
+            <a class="brand brand-footer" href="#home" aria-label="AMYLI home">
+                <img src="assets/images/amyli-logo.png" alt="AMYLI logo">
+                <span class="brand-text">
+                    <strong>AMYLI</strong>
+                    <small data-i18n="brand_subtitle">Academic Mentorship &amp; Youth Leadership Initiative</small>
+                </span>
+            </a>
+            <p data-i18n="footer_desc">
+                Educate. Connect. Grow. Empowering young people to turn their potential into meaningful progress.
+            </p>
+            <a class="footer-email" href="mailto:info.amyli26@gmail.com">
+                info.amyli26@gmail.com
+            </a>
+            <div class="social-links footer-social-links">
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+                <a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <h3 data-i18n="footer_explore">Explore</h3>
+            <a href="#about" data-i18n="footer_about">About AMYLI</a>
+            <a href="#mission" data-i18n="nav_about_mission">Mission and vision</a>
+            <a href="#values" data-i18n="nav_about_values">Core values</a>
+            <a href="#team" data-i18n="nav_about_team">Our team</a>
+        </div>
+
+        <div class="footer-links">
+            <h3 data-i18n="footer_programmes">Our programmes</h3>
+            <a href="#education" data-i18n="nav_prog_education">Academic mentorship</a>
+            <a href="#research" data-i18n="nav_prog_research">Research development</a>
+            <a href="#leadership" data-i18n="nav_prog_leadership">Leadership and careers</a>
+            <a href="#community" data-i18n="nav_prog_community">Community engagement</a>
+        </div>
+
+        <div class="footer-links">
+            <h3 data-i18n="footer_get_involved">Get involved</h3>
+            <a href="#digital-platform" data-i18n="nav_exp_platform">Digital platform</a>
+            <a href="#events" data-i18n="nav_exp_events">Events and activities</a>
+            <a href="#partners" data-i18n="nav_exp_partners">Partnerships</a>
+            <a href="#contact" data-i18n="nav_contact">Contact us</a>
+        </div>
+    </div>
+
+    <div class="container footer-bottom">
+        <p>© <span id="currentYear"></span> AMYLI. <span data-i18n="footer_rights">All rights reserved.</span></p>
+        <a href="#top" data-i18n="footer_back_top">Back to top ↑</a>
+    </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
+
+<!-- Program Modal (Injected via JS) -->
+<div id="programModalOverlay" class="program-modal-overlay hidden">
+    <div class="program-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="program-modal-close" id="closeProgramModal" aria-label="Close modal">×</button>
+        <div class="program-icon-large" id="modalIcon"></div>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDesc"></p>
+    </div>
+</div>
+
+</body>
+</html>
