@@ -28,6 +28,7 @@ amyli-website/
 ├── styles.css                       # All styles, variables, media queries
 ├── script.js                        # Nav, i18n, modals, carousel, form logic
 └── README.md                        # Project documentation
+```
 
 ## ✨ Key Features
 
