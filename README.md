@@ -1,60 +1,64 @@
 # AMYLI Website
 
-Responsive and multilingual website for the **Academic Mentorship & Youth Leadership Initiative (AMYLI)**. 
+> **Empower. Adapt. Lead. Succeed.**
 
-*Empower. Adapt. Lead. Succeed.*
+A responsive, multilingual, and modern website for the **Academic Mentorship & Youth Leadership Initiative (AMYLI)**. This platform serves as the digital hub for students, young professionals, and researchers to discover mentorship programmes, explore educational resources, and connect with a community dedicated to building socially responsible young leaders.
 
-## 📂 Project Files
+## 🚀 Live Demo
 
-- `index.html` — Website content and semantic page structure.
-- `styles.css` — Brand palette, responsive layouts, animations, dark mode, and gradient overlays.
-- `script.js` — Navigation, language translation engine, dark mode toggle, team carousel logic, program modals, and contact form handling.
-- `assets/images/` — Directory for local images (e.g., `amyli-logo.png`, team photos).
+You can view the live version of the website here: 
+**[https://YOUR-USERNAME.github.io/amyli-website/](https://YOUR-USERNAME.github.io/amyli-website/)**
+*(Note: Replace this link with your actual GitHub Pages URL once deployed).*
 
-## 🎨 Brand Styling
+##📂 Folder Structure
+amyli-website/
+│
+├── assets/
+│   └── images/         # Local images (logos, hero backgrounds, team photos)
+│       ├── amyli-logo.png
+│       ├── who-we-are.jpg
+│       └── Global Learning Horizons Banner.png
+│
+├── index.html          # Main homepage (Hero, About, Team, Contact, etc.)
+├── programs.html       # Dedicated page for all detailed programmes
+├── explore.html        # Dedicated page for resources, platform, and SDGs
+├── styles.css          # All styles, variables, media queries, and animations
+├── script.js           # Navigation, i18n translations, modals, and form logic
+└── README.md           # Project documentation
 
-The site strictly adheres to the AMYLI brand palette: **navy blue, bright blue, white, and light blue shades**. 
-- The primary typeface is **Inter** (via Google Fonts), with clean, modern typography.
-- The hero section features a custom right-to-left linear gradient overlay that blends seamlessly with the background image.
-- The UI includes a fully functional **Dark Mode**.
+## ✨ Key Features
 
-## ✨ Features
-
-- **Fully Responsive:** Optimized layouts for desktop, tablet, and mobile screens, with reduced typography scaling on smaller devices.
-- **Multilingual Support:** Dynamic translation engine supporting **English, Russian, French, and Spanish**. All text, including team profiles, updates instantly when the language is changed.
-- **Hero Section:** A modern background image with a custom gradient overlay and a distinctively styled twisted-border circular image overlay.
-- **Interactive Programmes:** Compact programme cards with summarized descriptions. Clicking "Read More" opens a sleek popup modal with full details.
-- **Team Carousel:** A horizontally scrolling team section with manual navigation arrows for mouse users. Clicking a card opens a rectangular profile modal containing the member's full bio and social links.
-- **Development Journey:** Floating card design with drop shadows and hover lift effects.
-- **SDG Alignment:** A redesigned, compact grid highlighting AMYLI's alignment with SDGs 3, 4, 8, 10, 16, and 17.
-- **Contact Form:** A compact, structured form that prepares an email draft via the visitor's default email application (`mailto:`). Includes direct phone contact details.
+- **Fully Responsive:** Optimized layouts for desktop, tablet, and mobile screens.
+- **Multilingual Support (i18n):** Dynamic translation engine supporting **English, Russian, French, Spanish, and Arabic**. Includes full Right-to-Left (RTL) layout support for Arabic.
+- **Dark Mode:** A fully functional dark theme that respects user preference and saves to local storage.
+- **Dedicated Pages:** Multi-page architecture including Home, Programmes, and Explore pages for better content organization.
+- **Interactive UI Components:**
+  - **Programmes Page:** Detailed content blocks with alternating images.
+  - **Team Carousel:** A horizontally scrolling team section with manual navigation arrows and popup profile modals.
+  - **Partners Marquee:** A continuous, left-to-right scrolling section for partner and sponsor logos.
+  - **Get Involved:** Interactive CTA cards that auto-select the relevant subject in the contact form.
+- **Contact Form:** A compact, structured form that prepares an email draft via the visitor's default email application (`mailto:`).
 - **Accessibility:** Built with semantic HTML, skip-links, keyboard navigation for modals, and ARIA attributes.
 
-## 💻 Run Locally
+## 🛠 Tech Stack & Tooling
 
-1. Clone or download this repository to your local machine.
-2. Open the project folder in your code editor (e.g., Visual Studio Code).
-3. Run `index.html` using a local server (like the **Live Server** extension for VS Code) or simply double-click the file to open it in a modern browser.
-4. Ensure `index.html`, `styles.css`, `script.js`, and the `assets/` folder remain in the same root directory.
+This project is built using standard web technologies. No complex build tools, frameworks, or package managers are required.
 
-## 🌍 Deploying to GitHub Pages
+- **HTML5:** Semantic structure.
+- **CSS3:** Custom properties (variables), Flexbox, CSS Grid, media queries, and keyframe animations (for the marquee).
+- **Vanilla JavaScript (ES6+):** DOM manipulation, translation engine, modal logic, carousel controls, and form handling.
+- **Google Fonts:** [Inter](https://fonts.google.com/specimen/Inter) typeface.
+- **Images:** Unsplash & Placehold.co (for placeholders).
 
-Since this is a static website, you can host it for free on GitHub Pages:
-1. Push your code to a GitHub repository.
-2. Go to **Settings** > **Pages**.
-3. Under "Build and deployment", select **Deploy from a branch**.
-4. Choose the `main` branch and the `/ (root)` folder, then click **Save**.
-5. Your site will be live at `https://YOUR-USERNAME.github.io/YOUR-REPO-NAME/`.
+## 📋 Prerequisites
 
-## ⚠️ Replace Placeholders Before Launch
+To run or edit this project, you only need:
+- A modern web browser (Chrome, Firefox, Safari, Edge).
+- A code editor (like [Visual Studio Code](https://code.visualstudio.com/)).
+- *Optional:* [Git](https://git-scm.com/) installed on your machine for version control.
 
-To ensure the site is fully professional and ready for production, please complete the following:
+## 💻 Local Development Setup
 
-- **Images:** Replace the Unsplash/Pexels sample photos (hero background, team photos) with approved AMYLI photos. Place them in the `assets/images/` folder and update the URLs in the code.
-- **Team Profiles:** Replace the sample team names, biographies, and generic social links with verified profiles inside `script.js`.
-- **Partner Logos:** Replace the scrolling partner-logo text placeholders with official partner logos (if applicable).
-- **Contact Details:** Verify the official email address (`info.amyli26@gmail.com`) and phone number (`+7 977 590-99-60`) in the HTML.
-- **Form Backend:** The current contact form uses a `mailto:` link. If you require direct submission, data storage, or spam protection, connect the form to a secure backend or a service like Formspree or Netlify Forms.
-
----
-*The images and profiles currently in the code are placeholders. SDG labels represent alignment described in AMYLI's introductory material, not independently verified impact results or official UN endorsement.*
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/amyli-website.git
