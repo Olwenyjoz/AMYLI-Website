@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeTheme();
     initializeLanguage();
     initializeTeam();
-    initializeProgramModals();
     initializeContactForm();
+    initializeInvolvedButtons();
     initializeBackToTop();
     initializeFooterYear();
 });
@@ -47,12 +47,8 @@ function initializeNavigation() {
     });
 
     document.addEventListener("click", (event) => {
-        if (!event.target.closest(".nav-dropdown")) {
-            closeDropdowns();
-        }
-        if (!mainNav.contains(event.target) && !menuToggle.contains(event.target)) {
-            closeMobileMenu();
-        }
+        if (!event.target.closest(".nav-dropdown")) closeDropdowns();
+        if (!mainNav.contains(event.target) && !menuToggle.contains(event.target)) closeMobileMenu();
     });
 
     mainNav.querySelectorAll("a").forEach((link) => {
@@ -87,9 +83,7 @@ function initializeNavigation() {
         dropdowns.forEach((dropdown) => {
             dropdown.classList.remove("open");
             const trigger = dropdown.querySelector(".nav-drop-trigger");
-            if (trigger) {
-                trigger.setAttribute("aria-expanded", "false");
-            }
+            if (trigger) trigger.setAttribute("aria-expanded", "false");
         });
     }
 }
@@ -102,9 +96,7 @@ function initializeTheme() {
     if (!toggle) return;
 
     let savedTheme = "light";
-    try {
-        savedTheme = localStorage.getItem("amyli-theme") || "light";
-    } catch (error) { /* Storage may be unavailable */ }
+    try { savedTheme = localStorage.getItem("amyli-theme") || "light"; } catch (e) {}
 
     applyTheme(savedTheme);
 
@@ -119,612 +111,303 @@ function initializeTheme() {
         toggle.textContent = isDark ? "☀" : "☾";
         toggle.setAttribute("aria-pressed", String(isDark));
         toggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
-        
-        try { 
-            localStorage.setItem("amyli-theme", theme); 
-        } catch (error) { /* Theme remains active */ }
+        try { localStorage.setItem("amyli-theme", theme); } catch (e) {}
     }
 }
 
 /* ==========================================================================
-   LANGUAGE SELECTOR
+   LANGUAGE SELECTOR & TRANSLATIONS
    ========================================================================== */
 const translations = {
     en: {
-        announcement_text: "Empower. Adapt. Lead. Succeed.",
-        announcement_link: "Be part of the journey ↗",
+        skip_link: "Skip to content", announcement_text: "Empower. Adapt. Lead. Succeed.", announcement_link: "Be part of the journey ↗",
         brand_subtitle: "Academic Mentorship & Youth Leadership Initiative",
-        nav_home: "Home",
-        nav_about: "About",
-        nav_about_who: "Who we are",
-        nav_about_mission: "Mission and vision",
-        nav_about_values: "Our core values",
-        nav_about_journey: "Our development journey",
-        nav_about_team: "Our team",
-        nav_programmes: "Programmes",
-        nav_prog_education: "Academic mentorship",
-        nav_prog_adaptation: "Student adaptation",
-        nav_prog_wellbeing: "Health and personal development",
-        nav_prog_research: "Research development",
-        nav_prog_leadership: "Leadership and careers",
-        nav_prog_workshops: "Workshops and events",
-        nav_prog_community: "Community engagement",
-        nav_explore: "Explore",
-        nav_exp_stories: "Learning resources",
-        nav_exp_platform: "Digital platform",
-        nav_exp_impact: "Our SDG contribution",
-        nav_exp_partners: "Partnerships",
-        nav_exp_events: "Events and activities",
-        nav_get_involved: "Get involved",
-        nav_contact: "Contact",
-        hero_eyebrow: "Academic mentorship and youth leadership",
-        hero_title: "Empower minds.<br><em>Shape futures.</em>",
-        hero_desc: "Building a generation of knowledgeable, confident and socially responsible young leaders.",
-        hero_btn_discover: "Discover AMYLI ↗",
-        hero_btn_programmes: "Explore our programmes",
-        hero_label: "Learning. Leadership. Opportunity.",
-        about_logo_text: "Empower. Adapt. Lead. Succeed.",
-        about_kicker: "WHO WE ARE",
-        about_title: "Building knowledgeable, confident and <em>responsible leaders.</em>",
+        nav_home: "Home", nav_about: "About", nav_about_who: "Who we are", nav_about_mission: "Mission and vision", nav_about_values: "Our core values", nav_about_journey: "Our development journey", nav_about_team: "Our team",
+        nav_programmes: "Programmes", nav_all_programs: "All Programmes", nav_explore: "Explore", nav_all_explore: "All Resources",
+        nav_get_involved: "Get involved", nav_contact: "Contact",
+        hero_eyebrow: "Academic mentorship and youth leadership", hero_title: "Empower minds.<br><em>Shape futures.</em>", hero_desc: "Building a generation of knowledgeable, confident and socially responsible young leaders.",
+        hero_btn_discover: "Discover AMYLI ↗", hero_btn_programmes: "Explore our programmes", hero_label: "Learning. Leadership. Opportunity.",
+        about_logo_text: "Empower. Adapt. Lead. Succeed.", about_kicker: "WHO WE ARE", about_title: "Building knowledgeable, confident and <em>responsible leaders.</em>",
         about_p1: "AMYLI (Academic Mentorship & Youth Leadership Initiative) is a youth-focused, non-profit and non-political initiative dedicated to empowering students, young professionals, aspiring researchers, and emerging leaders through academic mentorship, education, personal development, research support, leadership training, and community engagement.",
         about_p2: "We believe that every young person deserves access to guidance, opportunities, knowledge, and supportive networks that enable them to realise their potential. Through mentorship, educational programmes, webinars, workshops, research activities, and collaborative partnerships, AMYLI helps young people navigate academic life, develop practical skills, build meaningful connections, and prepare for successful professional and personal futures.",
         about_link: "Discover our mission ↗",
-        mission_kicker: "OUR MISSION",
-        mission_title: "Empowering people through learning.",
-        mission_desc: "To empower students and young professionals through accessible academic mentorship, education, research development, leadership training, and community engagement, enabling them to reach their full potential and contribute meaningfully to society.",
-        vision_kicker: "OUR VISION",
-        vision_title: "A generation ready to lead.",
-        vision_desc: "To build a generation of academically strong, socially responsible, internationally minded, and confident young professionals capable of contributing positively to their communities and countries.",
-        values_kicker: "WHAT GUIDES US",
-        values_title: "Our core <em>values.</em>",
-        values_desc: "Our values shape how we learn, work together, serve communities and support the next generation.",
-        value_1_title: "Academic excellence",
-        value_1_desc: "Encouraging lifelong learning, intellectual curiosity, critical thinking, and the pursuit of knowledge.",
-        value_2_title: "Mentorship and mutual support",
-        value_2_desc: "Connecting individuals through meaningful relationships that promote guidance, encouragement, knowledge-sharing, and personal growth.",
-        value_3_title: "Youth empowerment",
-        value_3_desc: "Equipping young people with the confidence, skills, and opportunities to take initiative and become active contributors to society.",
-        value_4_title: "Inclusion and equal opportunity",
-        value_4_desc: "Promoting a welcoming environment where young people from different educational, cultural, linguistic, and socioeconomic backgrounds can participate and develop.",
-        value_5_title: "Leadership and responsibility",
-        value_5_desc: "Encouraging ethical decision-making, accountability, initiative, and service-oriented leadership.",
-        value_6_title: "Research and innovation",
-        value_6_desc: "Supporting scientific curiosity, evidence-based thinking, research skills, and the development of innovative solutions to social challenges.",
-        value_7_title: "Volunteerism and community service",
-        value_7_desc: "Inspiring young people to use their time, knowledge, and skills to support others and improve their communities.",
-        value_8_title: "Integrity and respect",
-        value_8_desc: "Upholding professional ethics, respect, and intercultural understanding.",
-        value_9_title: "Partnership and international cooperation",
-        value_9_desc: "Building constructive relationships among universities, educational institutions, professional communities, civil society, and youth organisations.",
-        programs_kicker: "OUR PROGRAMMES",
-        programs_title: "Turning potential into <em>progress.</em>",
-        programs_desc: "We connect young people with knowledge, guidance, skills and supportive networks to encourage academic, professional and personal development.",
-        prog_1_title: "Academic mentorship",
-        prog_1_summary: "Connecting students with experienced mentors for academic guidance.",
-        prog_1_desc: "AMYLI connects students and young professionals with experienced mentors, researchers, educators, and other suitably qualified individuals who can provide guidance based on participants' interests, goals, and development needs.",
-        prog_2_title: "Student adaptation",
-        prog_2_summary: "Helping students navigate university life and new environments.",
-        prog_2_desc: "Beginning university or studying in a new country can be a significant transition. AMYLI helps students better understand academic expectations, navigate university life, build social connections, and develop the confidence to participate actively in their educational communities.",
-        prog_3_title: "Health & wellbeing",
-        prog_3_summary: "Promoting mental well-being, stress management, and healthy habits.",
-        prog_3_desc: "We recognise that academic success and personal growth are closely connected to physical health, mental well-being, emotional resilience, and healthy daily habits. AMYLI promotes awareness of stress management, burnout prevention, time management, healthy lifestyles, self-confidence, and work-life balance.",
-        prog_4_title: "Research development",
-        prog_4_summary: "Strengthening academic writing, methodology, and scientific skills.",
-        prog_4_desc: "AMYLI encourages young people to develop their research interests, strengthen academic writing skills, and participate in scientific and intellectual activities.",
-        prog_5_title: "Leadership & careers",
-        prog_5_summary: "Developing practical leadership and professional skills for future careers.",
-        prog_5_desc: "AMYLI supports the development of practical leadership and professional skills that help young people transition from education into meaningful careers and community leadership.",
-        prog_6_title: "Workshops & events",
-        prog_6_summary: "Bringing together students, mentors, and professionals to exchange knowledge.",
-        prog_6_desc: "AMYLI organises educational activities designed to bring together students, mentors, academics, researchers, professionals, volunteers, and youth leaders.",
-        prog_7_title: "Community engagement",
-        prog_7_summary: "Encouraging volunteering and collaborative projects that respond to real needs.",
-        prog_7_desc: "We believe that meaningful development includes a commitment to serving others. AMYLI encourages young people to participate in volunteering, peer support, educational outreach, community projects, and collaborative activities that respond to real needs.",
-        journey_kicker: "THE AMYLI DEVELOPMENT JOURNEY",
-        journey_title: "From learning to <em>leadership.</em>",
-        journey_desc: "Our approach to youth development is guided by six interconnected stages.",
-        journey_1_title: "Adapt",
-        journey_1_desc: "Understand new environments, navigate challenges, and develop the confidence to participate in academic and social communities.",
-        journey_2_title: "Learn",
-        journey_2_desc: "Acquire knowledge, strengthen academic skills, and embrace continuous personal and professional development.",
-        journey_3_title: "Connect",
-        journey_3_desc: "Build meaningful relationships with mentors, peers, educators, researchers, and professional networks.",
-        journey_4_title: "Lead",
-        journey_4_desc: "Develop initiative, communication, teamwork, decision-making, and responsible leadership.",
-        journey_5_title: "Serve",
-        journey_5_desc: "Apply knowledge and skills through volunteering, community engagement, and activities that benefit others.",
-        journey_6_title: "Mentor",
-        journey_6_desc: "Share experience, support others, and contribute to a sustainable culture of guidance, learning, and mutual growth.",
-        sdg_kicker: "OUR AREAS OF CONTRIBUTION",
-        sdg_title: "Learning today.<br><em>Contributing tomorrow.</em>",
-        sdg_desc: "AMYLI's activities align with several United Nations Sustainable Development Goals (SDGs).",
-        sdg_4_title: "Quality education",
-        sdg_4_desc: "Supporting inclusive learning, academic development, mentorship, and lifelong learning opportunities.",
-        sdg_8_title: "Decent work and economic growth",
-        sdg_8_desc: "Strengthening employability, career readiness, professional skills, and youth leadership.",
-        sdg_10_title: "Reduced inequalities",
-        sdg_10_desc: "Promoting inclusive access to mentorship, educational resources, and personal development opportunities.",
-        sdg_16_title: "Peace, justice and strong institutions",
-        sdg_16_desc: "Encouraging responsible leadership, accountability, ethical conduct, and constructive civic participation.",
-        sdg_17_title: "Partnerships for the goals",
-        sdg_17_desc: "Developing cooperation among educational institutions, civil society, professional communities, and youth organisations.",
-        sdg_3_title: "Good health and well-being",
-        sdg_3_desc: "Promoting health awareness, mental well-being, stress management, and healthy lifestyles.",
-        team_kicker: "THE PEOPLE BEHIND THE MISSION",
-        team_title: "People make the <em>mission.</em>",
-        team_desc: "Meet the people who help advance AMYLI's work.",
-        team_note: "Only verified team information should be published.",
-        team_cta: "View profile ↗",
-        contact_kicker: "GET IN TOUCH",
-        contact_title: "Let's start a<br><em>conversation.</em>",
-        contact_desc: "Have a question about mentorship, research, volunteering, educational activities or a potential partnership? Contact AMYLI.",
-        contact_email_title: "Email us",
-        contact_phone_title: "Call us",
-        contact_focus_title: "Our focus",
-        contact_focus_desc: "Academic mentorship, education, research, leadership and community engagement.",
-        contact_social_title: "Follow AMYLI",
-        form_title: "Send us a message",
-        form_desc: "Complete the form to prepare an email in your email application.",
-        form_name: "Your name",
-        form_email: "Your email",
-        form_topic: "Subject",
-        form_message: "Message",
-        form_submit: "Prepare email ↗",
-        form_status: "This form opens your email application. It does not store messages.",
-        footer_desc: "Educate. Connect. Grow. Empowering young people to turn their potential into meaningful progress.",
-        footer_explore: "Explore",
-        footer_about: "About AMYLI",
-        footer_programmes: "Our programmes",
-        footer_get_involved: "Get involved",
-        footer_rights: "All rights reserved.",
-        footer_back_top: "Back to top ↑"
+        mission_kicker: "OUR MISSION", mission_title: "Empowering people through learning.", mission_desc: "To empower students and young professionals through accessible academic mentorship, education, research development, leadership training, and community engagement, enabling them to reach their full potential and contribute meaningfully to society.",
+        vision_kicker: "OUR VISION", vision_title: "A generation ready to lead.", vision_desc: "To build a generation of academically strong, socially responsible, internationally minded, and confident young professionals capable of contributing positively to their communities and countries.",
+        values_kicker: "WHAT GUIDES US", values_title: "Our core <em>values.</em>", values_desc: "Our values shape how we learn, work together, serve communities and support the next generation.",
+        value_1_title: "Academic excellence", value_1_desc: "Encouraging lifelong learning, intellectual curiosity, critical thinking, and the pursuit of knowledge.",
+        value_2_title: "Mentorship and mutual support", value_2_desc: "Connecting individuals through meaningful relationships that promote guidance, encouragement, knowledge-sharing, and personal growth.",
+        value_3_title: "Youth empowerment", value_3_desc: "Equipping young people with the confidence, skills, and opportunities to take initiative and become active contributors to society.",
+        value_4_title: "Inclusion and equal opportunity", value_4_desc: "Promoting a welcoming environment where young people from different educational, cultural, linguistic, and socioeconomic backgrounds can participate and develop.",
+        value_5_title: "Leadership and responsibility", value_5_desc: "Encouraging ethical decision-making, accountability, initiative, and service-oriented leadership.",
+        value_6_title: "Research and innovation", value_6_desc: "Supporting scientific curiosity, evidence-based thinking, research skills, and the development of innovative solutions to social challenges.",
+        value_7_title: "Volunteerism and community service", value_7_desc: "Inspiring young people to use their time, knowledge, and skills to support others and improve their communities.",
+        value_8_title: "Integrity and respect", value_8_desc: "Upholding professional ethics, respect, and intercultural understanding.",
+        value_9_title: "Partnership and international cooperation", value_9_desc: "Building constructive relationships among universities, educational institutions, professional communities, civil society, and youth organisations.",
+        programs_kicker: "OUR PROGRAMMES", programs_title: "Turning potential into <em>progress.</em>", programs_desc: "We connect young people with knowledge, guidance, skills and supportive networks to encourage academic, professional and personal development.",
+        prog_1_title: "Academic mentorship", prog_1_summary: "Connecting students with experienced mentors for academic guidance.", prog_1_desc: "AMYLI connects students and young professionals with experienced mentors, researchers, educators, and other suitably qualified individuals who can provide guidance based on participants' interests, goals, and development needs.", prog_1_extra: "Our mentorship model is built on trust, consistency, and mutual respect. We carefully match mentees with mentors who can offer not only academic advice but also career guidance and personal encouragement. Through regular check-ins and structured goal-setting, we ensure that every participant feels supported in navigating their unique academic journey.",
+        prog_2_title: "Student adaptation", prog_2_summary: "Helping students navigate university life and new environments.", prog_2_desc: "Beginning university or studying in a new country can be a significant transition. AMYLI helps students better understand academic expectations, navigate university life, build social connections, and develop the confidence to participate actively in their educational communities.", prog_2_extra: "We provide practical support for international students and those entering higher education for the first time. This includes orientation sessions, cultural integration workshops, and peer support networks. By fostering a sense of belonging, we help students overcome initial challenges and thrive in their new environments.",
+        prog_3_title: "Health & wellbeing", prog_3_summary: "Promoting mental well-being, stress management, and healthy habits.", prog_3_desc: "We recognise that academic success and personal growth are closely connected to physical health, mental well-being, emotional resilience, and healthy daily habits. AMYLI promotes awareness of stress management, burnout prevention, time management, healthy lifestyles, self-confidence, and work-life balance.", prog_3_extra: "Our wellbeing initiatives include expert-led webinars, mindfulness sessions, and resources on managing academic pressure. We aim to destigmatize mental health discussions and equip young people with the tools they need to maintain a healthy balance between their studies and personal lives.",
+        prog_4_title: "Research development", prog_4_summary: "Strengthening academic writing, methodology, and scientific skills.", prog_4_desc: "AMYLI encourages young people to develop their research interests, strengthen academic writing skills, and participate in scientific and intellectual activities.", prog_4_extra: "We offer workshops on research methodologies, academic integrity, and publishing. Participants have the opportunity to collaborate on projects, receive feedback on their work, and connect with established researchers, laying a strong foundation for future academic and professional pursuits.",
+        journey_kicker: "THE AMYLI DEVELOPMENT JOURNEY", journey_title: "From learning to <em>leadership.</em>", journey_desc: "Our approach to youth development is guided by six interconnected stages.",
+        journey_1_title: "Adapt", journey_1_desc: "Understand new environments, navigate challenges, and develop the confidence to participate in academic and social communities.",
+        journey_2_title: "Learn", journey_2_desc: "Acquire knowledge, strengthen academic skills, and embrace continuous personal and professional development.",
+        journey_3_title: "Connect", journey_3_desc: "Build meaningful relationships with mentors, peers, educators, researchers, and professional networks.",
+        journey_4_title: "Lead", journey_4_desc: "Develop initiative, communication, teamwork, decision-making, and responsible leadership.",
+        journey_5_title: "Serve", journey_5_desc: "Apply knowledge and skills through volunteering, community engagement, and activities that benefit others.",
+        journey_6_title: "Mentor", journey_6_desc: "Share experience, support others, and contribute to a sustainable culture of guidance, learning, and mutual growth.",
+        sdg_kicker: "OUR AREAS OF CONTRIBUTION", sdg_title: "Learning today.<br><em>Contributing tomorrow.</em>", sdg_desc: "AMYLI's activities align with several United Nations Global Goals.", sdg_extra: "By aligning our work with these global objectives, we ensure that our local actions contribute to a broader, sustainable impact. We measure our success not just by the number of participants, but by how effectively we are helping to build a more equitable and educated world, fostering a generation that is aware of its role in global society.",
+        sdg_4_title: "Quality education", sdg_4_desc: "Supporting inclusive learning, academic development, mentorship, and lifelong learning opportunities.",
+        sdg_8_title: "Decent work and economic growth", sdg_8_desc: "Strengthening employability, career readiness, professional skills, and youth leadership.",
+        sdg_10_title: "Reduced inequalities", sdg_10_desc: "Promoting inclusive access to mentorship, educational resources, and personal development opportunities.",
+        sdg_16_title: "Peace, justice and strong institutions", sdg_16_desc: "Encouraging responsible leadership, accountability, ethical conduct, and constructive civic participation.",
+        sdg_17_title: "Partnerships for the goals", sdg_17_desc: "Developing cooperation among educational institutions, civil society, professional communities, and youth organisations.",
+        sdg_3_title: "Good health and well-being", sdg_3_desc: "Promoting health awareness, mental well-being, stress management, and healthy lifestyles.",
+        team_kicker: "THE PEOPLE BEHIND THE MISSION", team_title: "People make the <em>mission.</em>", team_desc: "Meet the people who help advance AMYLI's work.", team_note: "Only verified team information should be published.", team_cta: "View profile ↗",
+        partners_kicker: "WORKING TOGETHER", partners_title: "Our Partners & <em>Sponsors.</em>", partners_desc: "We collaborate with organizations that share our vision for youth empowerment and education.",
+        explore_title: "Resources & <em>Opportunities.</em>", explore_desc: "Discover our digital platforms, learning resources, and how we are contributing to global goals.",
+        involved_kicker: "JOIN THE MISSION", involved_title: "There is a place for <em>everyone.</em>", involved_desc: "Whether you want to learn, lead, or give back, you can make a difference with AMYLI.",
+        involved_volunteer_title: "Volunteer & Mentor", involved_volunteer_desc: "Share your expertise, guide a student, or help us organize events. We are always looking for dedicated mentors and volunteers.", involved_volunteer_btn: "Volunteer with us",
+        involved_partner_title: "Partner with us", involved_partner_desc: "We collaborate with universities, civil society, and professional organizations to expand our impact.", involved_partner_btn: "Explore Partnerships",
+        involved_donate_title: "Support our work", involved_donate_desc: "Your financial contribution helps us keep our educational programmes accessible to everyone, regardless of background.", involved_donate_btn: "Donate or Support",
+        contact_kicker: "GET IN TOUCH", contact_title: "Let's start a<br><em>conversation.</em>", contact_desc: "Have a question about mentorship, research, volunteering, educational activities or a potential partnership? Contact AMYLI.",
+        contact_email_title: "Email us", contact_phone_title: "Call us", contact_social_title: "Follow AMYLI",
+        form_title: "Send us a message", form_desc: "Complete the form to prepare an email in your email application.",
+        form_name: "Your name", form_email: "Your email", form_topic: "Subject", form_message: "Message", form_topic_placeholder: "Select a topic",
+        form_topic_1: "Academic mentorship", form_topic_2: "Student adaptation", form_topic_3: "Health & wellbeing", form_topic_4: "Research development", form_topic_5: "Volunteering", form_topic_6: "Partnership", form_topic_7: "Donation", form_topic_8: "Other enquiry",
+        form_submit: "Prepare email ↗", form_status: "This form opens your email application. It does not store messages.",
+        footer_desc: "Educate. Connect. Grow. Empowering young people to turn their potential into meaningful progress.", footer_explore: "Explore", footer_about: "About AMYLI", footer_programmes: "Our programmes", footer_get_involved: "Get involved", footer_rights: "All rights reserved.", footer_back_top: "Back to top ↑"
     },
     ru: {
-        announcement_text: "Расширяем возможности. Адаптируемся. Ведем. Добиваемся успеха.",
-        announcement_link: "Станьте частью пути ↗",
+        skip_link: "Перейти к содержанию", announcement_text: "Расширяем возможности. Адаптируемся. Ведем. Добиваемся успеха.", announcement_link: "Станьте частью пути ↗",
         brand_subtitle: "Инициатива по академическому наставничеству и молодежному лидерству",
-        nav_home: "Главная",
-        nav_about: "О нас",
-        nav_about_who: "Кто мы",
-        nav_about_mission: "Миссия и видение",
-        nav_about_values: "Наши ценности",
-        nav_about_journey: "Наш путь развития",
-        nav_about_team: "Наша команда",
-        nav_programmes: "Программы",
-        nav_prog_education: "Академическое наставничество",
-        nav_prog_adaptation: "Адаптация студентов",
-        nav_prog_wellbeing: "Здоровье и личностное развитие",
-        nav_prog_research: "Развитие исследований",
-        nav_prog_leadership: "Лидерство и карьера",
-        nav_prog_workshops: "Семинары и мероприятия",
-        nav_prog_community: "Вовлечение сообщества",
-        nav_explore: "Исследовать",
-        nav_exp_stories: "Учебные ресурсы",
-        nav_exp_platform: "Цифровая платформа",
-        nav_exp_impact: "Наш вклад в ЦУР",
-        nav_exp_partners: "Партнерства",
-        nav_exp_events: "События и мероприятия",
-        nav_get_involved: "Принять участие",
-        nav_contact: "Контакты",
-        hero_eyebrow: "Академическое наставничество и молодежное лидерство",
-        hero_title: "Расширяем возможности.<br><em>Формируем будущее.</em>",
-        hero_desc: "Воспитываем поколение знающих, уверенных и социально ответственных молодых лидеров.",
-        hero_btn_discover: "Узнать об AMYLI ↗",
-        hero_btn_programmes: "Наши программы",
-        hero_label: "Обучение. Лидерство. Возможности.",
-        about_logo_text: "Расширяем возможности. Адаптируемся. Ведем. Добиваемся успеха.",
-        about_kicker: "КТО МЫ",
-        about_title: "Воспитываем знающих, уверенных и <em>ответственных лидеров.</em>",
+        nav_home: "Главная", nav_about: "О нас", nav_about_who: "Кто мы", nav_about_mission: "Миссия и видение", nav_about_values: "Наши ценности", nav_about_journey: "Наш путь развития", nav_about_team: "Наша команда",
+        nav_programmes: "Программы", nav_all_programs: "Все программы", nav_explore: "Исследовать", nav_all_explore: "Все ресурсы",
+        nav_get_involved: "Принять участие", nav_contact: "Контакты",
+        hero_eyebrow: "Академическое наставничество и молодежное лидерство", hero_title: "Расширяем возможности.<br><em>Формируем будущее.</em>", hero_desc: "Воспитываем поколение знающих, уверенных и социально ответственных молодых лидеров.",
+        hero_btn_discover: "Узнать об AMYLI ↗", hero_btn_programmes: "Наши программы", hero_label: "Обучение. Лидерство. Возможности.",
+        about_logo_text: "Расширяем возможности. Адаптируемся. Ведем. Добиваемся успеха.", about_kicker: "КТО МЫ", about_title: "Воспитываем знающих, уверенных и <em>ответственных лидеров.</em>",
         about_p1: "AMYLI (Инициатива по академическому наставничеству и молодежному лидерству) — это молодежная, некоммерческая и неполитическая инициатива, направленная на расширение возможностей студентов, молодых специалистов, начинающих исследователей и будущих лидеров через академическое наставничество, образование, личностное развитие, поддержку исследований, обучение лидерству и вовлечение сообщества.",
         about_p2: "Мы верим, что каждый молодой человек заслуживает доступа к руководству, возможностям, знаниям и поддерживающим сетям, которые позволяют им реализовать свой потенциал. Через наставничество, образовательные программы, вебинары, семинары, исследования и партнерства AMYLI помогает молодым людям ориентироваться в академической жизни, развивать практические навыки, строить значимые связи и готовиться к успешному профессиональному и личному будущему.",
         about_link: "Узнать о нашей миссии ↗",
-        mission_kicker: "НАША МИССИЯ",
-        mission_title: "Расширяем возможности через обучение.",
-        mission_desc: "Расширять возможности студентов и молодых специалистов через доступное академическое наставничество, образование, развитие исследований, обучение лидерству и вовлечение сообщества, позволяя им полностью раскрыть свой потенциал и вносить значимый вклад в общество.",
-        vision_kicker: "НАШЕ ВИДЕНИЕ",
-        vision_title: "Поколение, готовое вести за собой.",
-        vision_desc: "Создать поколение академически сильных, социально ответственных, мыслящих международно и уверенных молодых специалистов, способных позитивно влиять на свои сообщества и страны.",
-        values_kicker: "ЧТО НАМИ РУКОВОДИТ",
-        values_title: "Наши основные <em>ценности.</em>",
-        values_desc: "Наши ценности определяют, как мы учимся, работаем вместе, служим сообществам и поддерживаем следующее поколение.",
-        value_1_title: "Академическое превосходство",
-        value_1_desc: "Поощрение обучения на протяжении всей жизни, интеллектуального любопытства, критического мышления и стремления к знаниям.",
-        value_2_title: "Наставничество и взаимная поддержка",
-        value_2_desc: "Связывание людей через значимые отношения, способствующие руководству, поощрению, обмену знаниями и личностному росту.",
-        value_3_title: "Расширение прав и возможностей молодежи",
-        value_3_desc: "Оснащение молодых людей уверенностью, навыками и возможностями для проявления инициативы и становления активными членами общества.",
-        value_4_title: "Инклюзивность и равные возможности",
-        value_4_desc: "Создание благоприятной среды, в которой молодые люди из разных образовательных, культурных, языковых и социально-экономических слоев могут участвовать и развиваться.",
-        value_5_title: "Лидерство и ответственность",
-        value_5_desc: "Поощрение этичного принятия решений, подотчетности, инициативы и лидерства, ориентированного на служение.",
-        value_6_title: "Исследования и инновации",
-        value_6_desc: "Поддержка научного любопытства, мышления, основанного на доказательствах, исследовательских навыков и разработки инновационных решений социальных проблем.",
-        value_7_title: "Волонтерство и общественная работа",
-        value_7_desc: "Вдохновлять молодых людей использовать свое время, знания и навыки для поддержки других и улучшения своих сообществ.",
-        value_8_title: "Честность и уважение",
-        value_8_desc: "Соблюдение профессиональной этики, уважения и межкультурного взаимопонимания.",
-        value_9_title: "Партнерство и международное сотрудничество",
-        value_9_desc: "Построение конструктивных отношений между университетами, образовательными учреждениями, профессиональными сообществами, гражданским обществом и молодежными организациями.",
-        programs_kicker: "НАШИ ПРОГРАММЫ",
-        programs_title: "Превращаем потенциал в <em>прогресс.</em>",
-        programs_desc: "Мы связываем молодых людей со знаниями, руководством, навыками и поддерживающими сетями для поощрения академического, профессионального и личного развития.",
-        prog_1_title: "Академическое наставничество",
-        prog_1_summary: "Связываем студентов с опытными наставниками для академического руководства.",
-        prog_1_desc: "AMYLI связывает студентов и молодых специалистов с опытными наставниками, исследователями, преподавателями и другими квалифицированными специалистами, которые могут предоставить руководство, основанное на интересах, целях и потребностях участников в развитии.",
-        prog_2_title: "Адаптация студентов",
-        prog_2_summary: "Помогаем студентам ориентироваться в университетской жизни и новой среде.",
-        prog_2_desc: "Начало учебы в университете или за рубежом может быть значительным переходом. AMYLI помогает студентам лучше понять академические ожидания, ориентироваться в университетской жизни, строить социальные связи и развивать уверенность для активного участия в своих образовательных сообществах.",
-        prog_3_title: "Здоровье и благополучие",
-        prog_3_summary: "Продвигаем психическое благополучие, управление стрессом и здоровые привычки.",
-        prog_3_desc: "Мы признаем, что академический успех и личностный рост тесно связаны с физическим здоровьем, психическим благополучием, эмоциональной устойчивостью и здоровыми ежедневными привычками. AMYLI повышает осведомленность о управлении стрессом, предотвращении выгорания, тайм-менеджменте, здоровом образе жизни, уверенности в себе и балансе между работой и жизнью.",
-        prog_4_title: "Развитие исследований",
-        prog_4_summary: "Укрепляем академическое письмо, методологию и научные навыки.",
-        prog_4_desc: "AMYLI поощряет молодых людей развивать свои исследовательские интересы, укреплять навыки академического письма и участвовать в научной и интеллектуальной деятельности.",
-        prog_5_title: "Лидерство и карьера",
-        prog_5_summary: "Развиваем практические лидерские и профессиональные навыки для будущей карьеры.",
-        prog_5_desc: "AMYLI поддерживает развитие практических лидерских и профессиональных навыков, которые помогают молодым людям перейти от образования к значимой карьере и лидерству в сообществе.",
-        prog_6_title: "Семинары и мероприятия",
-        prog_6_summary: "Объединяем студентов, наставников и специалистов для обмена знаниями.",
-        prog_6_desc: "AMYLI организует образовательные мероприятия, предназначенные для объединения студентов, наставников, академиков, исследователей, специалистов, волонтеров и молодежных лидеров.",
-        prog_7_title: "Вовлечение сообщества",
-        prog_7_summary: "Поощряем волонтерство и совместные проекты, отвечающие реальным потребностям.",
-        prog_7_desc: "Мы верим, что значимое развитие включает в себя приверженность служению другим. AMYLI поощряет молодых людей участвовать в волонтерстве, взаимной поддержке, образовательной работе, общественных проектах и совместных мероприятиях, отвечающих реальным потребностям.",
-        journey_kicker: "ПУТЬ РАЗВИТИЯ AMYLI",
-        journey_title: "От обучения к <em>лидерству.</em>",
-        journey_desc: "Наш подход к развитию молодежи руководствуется шестью взаимосвязанными этапами.",
-        journey_1_title: "Адаптация",
-        journey_1_desc: "Понимание новой среды, преодоление трудностей и развитие уверенности для участия в академических и социальных сообществах.",
-        journey_2_title: "Обучение",
-        journey_2_desc: "Приобретение знаний, укрепление академических навыков и непрерывное личностное и профессиональное развитие.",
-        journey_3_title: "Связи",
-        journey_3_desc: "Построение значимых отношений с наставниками, сверстниками, преподавателями, исследователями и профессиональными сетями.",
-        journey_4_title: "Лидерство",
-        journey_4_desc: "Развитие инициативы, коммуникации, командной работы, принятия решений и ответственного лидерства.",
-        journey_5_title: "Служение",
-        journey_5_desc: "Применение знаний и навыков через волонтерство, вовлечение сообщества и деятельность, приносящую пользу другим.",
-        journey_6_title: "Наставничество",
-        journey_6_desc: "Обмен опытом, поддержка других и вклад в устойчивую культуру руководства, обучения и взаимного роста.",
-        sdg_kicker: "НАШИ НАПРАВЛЕНИЯ ВКЛАДА",
-        sdg_title: "Учимся сегодня.<br><em>Вносим вклад завтра.</em>",
-        sdg_desc: "Деятельность AMYLI соответствует нескольким Целям устойчивого развития ООН (ЦУР).",
-        sdg_4_title: "Качественное образование",
-        sdg_4_desc: "Поддержка инклюзивного обучения, академического развития, наставничества и возможностей для обучения на протяжении всей жизни.",
-        sdg_8_title: "Достойная работа и экономический рост",
-        sdg_8_desc: "Укрепление трудоустройства, готовности к карьере, профессиональных навыков и молодежного лидерства.",
-        sdg_10_title: "Уменьшение неравенства",
-        sdg_10_desc: "Продвижение инклюзивного доступа к наставничеству, образовательным ресурсам и возможностям личностного развития.",
-        sdg_16_title: "Мир, справедливость и сильные институты",
-        sdg_16_desc: "Поощрение ответственного лидерства, подотчетности, этичного поведения и конструктивного гражданского участия.",
-        sdg_17_title: "Партнерство в интересах устойчивого развития",
-        sdg_17_desc: "Развитие сотрудничества между образовательными учреждениями, гражданским обществом, профессиональными сообществами и молодежными организациями.",
-        sdg_3_title: "Хорошее здоровье и благополучие",
-        sdg_3_desc: "Повышение осведомленности о здоровье, психическом благополучии, управлении стрессом и здоровом образе жизни.",
-        team_kicker: "ЛЮДИ, СТОЯЩИЕ ЗА МИССИЕЙ",
-        team_title: "Люди делают <em>миссию.</em>",
-        team_desc: "Познакомьтесь с людьми, которые помогают продвигать работу AMYLI.",
-        team_note: "Публиковать следует только проверенную информацию о команде.",
-        team_cta: "Посмотреть профиль ↗",
-        contact_kicker: "СВЯЖИТЕСЬ С НАМИ",
-        contact_title: "Давайте начнем<br><em>разговор.</em>",
-        contact_desc: "Есть вопрос о наставничестве, исследованиях, волонтерстве, образовательных мероприятиях или потенциальном партнерстве? Свяжитесь с AMYLI.",
-        contact_email_title: "Напишите нам",
-        contact_phone_title: "Позвоните нам",
-        contact_focus_title: "Наш фокус",
-        contact_focus_desc: "Академическое наставничество, образование, исследования, лидерство и вовлечение сообщества.",
-        contact_social_title: "Следите за AMYLI",
-        form_title: "Отправьте нам сообщение",
-        form_desc: "Заполните форму, чтобы подготовить электронное письмо в вашем почтовом приложении.",
-        form_name: "Ваше имя",
-        form_email: "Ваш email",
-        form_topic: "Тема",
-        form_message: "Сообщение",
-        form_submit: "Подготовить письмо ↗",
-        form_status: "Эта форма открывает ваше почтовое приложение. Она не сохраняет сообщения.",
-        footer_desc: "Образовывать. Соединять. Расти. Расширяем возможности молодых людей превращать свой потенциал в значимый прогресс.",
-        footer_explore: "Исследовать",
-        footer_about: "Oб AMYLI",
-        footer_programmes: "Наши программы",
-        footer_get_involved: "Принять участие",
-        footer_rights: "Bce права защищены.",
-        footer_back_top: "Наверх ↑"
+        mission_kicker: "НАША МИССИЯ", mission_title: "Расширяем возможности через обучение.", mission_desc: "Расширять возможности студентов и молодых специалистов через доступное академическое наставничество, образование, развитие исследований, обучение лидерству и вовлечение сообщества, позволяя им полностью раскрыть свой потенциал и вносить значимый вклад в общество.",
+        vision_kicker: "НАШЕ ВИДЕНИЕ", vision_title: "Поколение, готовое вести за собой.", vision_desc: "Создать поколение академически сильных, социально ответственных, мыслящих международно и уверенных молодых специалистов, способных позитивно влиять на свои сообщества и страны.",
+        values_kicker: "ЧТО НАМИ РУКОВОДИТ", values_title: "Наши основные <em>ценности.</em>", values_desc: "Наши ценности определяют, как мы учимся, работаем вместе, служим сообществам и поддерживаем следующее поколение.",
+        value_1_title: "Академическое превосходство", value_1_desc: "Поощрение обучения на протяжении всей жизни, интеллектуального любопытства, критического мышления и стремления к знаниям.",
+        value_2_title: "Наставничество и взаимная поддержка", value_2_desc: "Связывание людей через значимые отношения, способствующие руководству, поощрению, обмену знаниями и личностному росту.",
+        value_3_title: "Расширение прав и возможностей молодежи", value_3_desc: "Оснащение молодых людей уверенностью, навыками и возможностями для проявления инициативы и становления активными членами общества.",
+        value_4_title: "Инклюзивность и равные возможности", value_4_desc: "Создание благоприятной среды, в которой молодые люди из разных образовательных, культурных, языковых и социально-экономических слоев могут участвовать и развиваться.",
+        value_5_title: "Лидерство и ответственность", value_5_desc: "Поощрение этичного принятия решений, подотчетности, инициативы и лидерства, ориентированного на служение.",
+        value_6_title: "Исследования и инновации", value_6_desc: "Поддержка научного любопытства, мышления, основанного на доказательствах, исследовательских навыков и разработки инновационных решений социальных проблем.",
+        value_7_title: "Волонтерство и общественная работа", value_7_desc: "Вдохновлять молодых людей использовать свое время, знания и навыки для поддержки других и улучшения своих сообществ.",
+        value_8_title: "Честность и уважение", value_8_desc: "Соблюдение профессиональной этики, уважения и межкультурного взаимопонимания.",
+        value_9_title: "Партнерство и международное сотрудничество", value_9_desc: "Построение конструктивных отношений между университетами, образовательными учреждениями, профессиональными сообществами, гражданским обществом и молодежными организациями.",
+        programs_kicker: "НАШИ ПРОГРАММЫ", programs_title: "Превращаем потенциал в <em>прогресс.</em>", programs_desc: "Мы связываем молодых людей со знаниями, руководством, навыками и поддерживающими сетями для поощрения академического, профессионального и личного развития.",
+        prog_1_title: "Академическое наставничество", prog_1_summary: "Связываем студентов с опытными наставниками для академического руководства.", prog_1_desc: "AMYLI связывает студентов и молодых специалистов с опытными наставниками, исследователями, преподавателями и другими квалифицированными специалистами, которые могут предоставить руководство, основанное на интересах, целях и потребностях участников в развитии.", prog_1_extra: "Наша модель наставничества основана на доверии, последовательности и взаимном уважении. Мы тщательно подбираем наставников, которые могут предложить не только академические советы, но и карьерное руководство и личную поддержку. Благодаря регулярным встречам и структурированной постановке целей мы гарантируем, что каждый участник чувствует поддержку в своем уникальном академическом путешествии.",
+        prog_2_title: "Адаптация студентов", prog_2_summary: "Помогаем студентам ориентироваться в университетской жизни и новой среде.", prog_2_desc: "Начало учебы в университете или за рубежом может быть значительным переходом. AMYLI помогает студентам лучше понять академические ожидания, ориентироваться в университетской жизни, строить социальные связи и развивать уверенность для активного участия в своих образовательных сообществах.", prog_2_extra: "Мы предоставляем практическую поддержку иностранным студентам и тем, кто впервые поступает в высшие учебные заведения. Это включает в себя ориентационные сессии, семинары по культурной интеграции и сети взаимной поддержки. Поощряя чувство принадлежности, мы помогаем студентам преодолеть первоначальные трудности и процветать в новой среде.",
+        prog_3_title: "Здоровье и благополучие", prog_3_summary: "Продвигаем психическое благополучие, управление стрессом и здоровые привычки.", prog_3_desc: "Мы признаем, что академический успех и личностный рост тесно связаны с физическим здоровьем, психическим благополучием, эмоциональной устойчивостью и здоровыми ежедневными привычками. AMYLI повышает осведомленность о управлении стрессом, предотвращении выгорания, тайм-менеджменте, здоровом образе жизни, уверенности в себе и балансе между работой и жизнью.", prog_3_extra: "Наши инициативы в области благополучия включают вебинары с экспертами, сеансы осознанности и ресурсы по управлению академическим давлением. Мы стремимся дестигматизировать обсуждение психического здоровья и вооружить молодых людей инструментами, необходимыми для поддержания здорового баланса между учебой и личной жизнью.",
+        prog_4_title: "Развитие исследований", prog_4_summary: "Укрепляем академическое письмо, методологию и научные навыки.", prog_4_desc: "AMYLI поощряет молодых людей развивать свои исследовательские интересы, укреплять навыки академического письма и участвовать в научной и интеллектуальной деятельности.", prog_4_extra: "Мы предлагаем семинары по методологии исследований, академической честности и публикации. Участники имеют возможность сотрудничать в проектах, получать отзывы о своей работе и общаться с известными исследователями, закладывая прочную основу для будущих академических и профессиональных занятий.",
+        journey_kicker: "ПУТЬ РАЗВИТИЯ AMYLI", journey_title: "От обучения к <em>лидерству.</em>", journey_desc: "Наш подход к развитию молодежи руководствуется шестью взаимосвязанными этапами.",
+        journey_1_title: "Адаптация", journey_1_desc: "Понимание новой среды, преодоление трудностей и развитие уверенности для участия в академических и социальных сообществах.",
+        journey_2_title: "Обучение", journey_2_desc: "Приобретение знаний, укрепление академических навыков и непрерывное личностное и профессиональное развитие.",
+        journey_3_title: "Связи", journey_3_desc: "Построение значимых отношений с наставниками, сверстниками, преподавателями, исследователями и профессиональными сетями.",
+        journey_4_title: "Лидерство", journey_4_desc: "Развитие инициативы, коммуникации, командной работы, принятия решений и ответственного лидерства.",
+        journey_5_title: "Служение", journey_5_desc: "Применение знаний и навыков через волонтерство, вовлечение сообщества и деятельность, приносящую пользу другим.",
+        journey_6_title: "Наставничество", journey_6_desc: "Обмен опытом, поддержка других и вклад в устойчивую культуру руководства, обучения и взаимного роста.",
+        sdg_kicker: "НАШИ НАПРАВЛЕНИЯ ВКЛАДА", sdg_title: "Учимся сегодня.<br><em>Вносим вклад завтра.</em>", sdg_desc: "Деятельность AMYLI соответствует нескольким Глобальным целям ООН.", sdg_extra: "Согласовывая нашу работу с этими глобальными целями, мы гарантируем, что наши местные действия способствуют более широкому, устойчивому воздействию. Мы измеряем наш успех не только по количеству участников, но и по тому, насколько эффективно мы помогаем построить более справедливый и образованный мир, воспитывая поколение, осознающее свою роль в глобальном обществе.",
+        sdg_4_title: "Качественное образование", sdg_4_desc: "Поддержка инклюзивного обучения, академического развития, наставничества и возможностей для обучения на протяжении всей жизни.",
+        sdg_8_title: "Достойная работа и экономический рост", sdg_8_desc: "Укрепление трудоустройства, готовности к карьере, профессиональных навыков и молодежного лидерства.",
+        sdg_10_title: "Уменьшение неравенства", sdg_10_desc: "Продвижение инклюзивного доступа к наставничеству, образовательным ресурсам и возможностям личностного развития.",
+        sdg_16_title: "Мир, справедливость и сильные институты", sdg_16_desc: "Поощрение ответственного лидерства, подотчетности, этичного поведения и конструктивного гражданского участия.",
+        sdg_17_title: "Партнерство в интересах устойчивого развития", sdg_17_desc: "Развитие сотрудничества между образовательными учреждениями, гражданским обществом, профессиональными сообществами и молодежными организациями.",
+        sdg_3_title: "Хорошее здоровье и благополучие", sdg_3_desc: "Повышение осведомленности о здоровье, психическом благополучии, управлении стрессом и здоровом образе жизни.",
+        team_kicker: "ЛЮДИ, СТОЯЩИЕ ЗА МИССИЕЙ", team_title: "Люди делают <em>миссию.</em>", team_desc: "Познакомьтесь с людьми, которые помогают продвигать работу AMYLI.", team_note: "Публиковать следует только проверенную информацию о команде.", team_cta: "Посмотреть профиль ↗",
+        partners_kicker: "РАБОТАЕМ ВМЕСТЕ", partners_title: "Наши партнеры и <em>спонсоры.</em>", partners_desc: "Мы сотрудничаем с организациями, которые разделяют наше видение расширения прав и возможностей молодежи и образования.",
+        explore_title: "Ресурсы и <em>Возможности.</em>", explore_desc: "Откройте для себя наши цифровые платформы, учебные ресурсы и то, как мы вносим вклад в глобальные цели.",
+        involved_kicker: "ПРИСОЕДИНЯЙТЕСЬ К МИССИИ", involved_title: "Место есть для <em>каждого.</em>", involved_desc: "Хотите ли вы учиться, вести за собой или отдавать — вы можете изменить мир к лучшему вместе с AMYLI.",
+        involved_volunteer_title: "Волонтер и Наставник", involved_volunteer_desc: "Делитесь опытом, направляйте студента или помогайте организовывать мероприятия. Нам всегда нужны преданные наставники и волонтеры.", involved_volunteer_btn: "Стать волонтером",
+        involved_partner_title: "Стать партнером", involved_partner_desc: "Мы сотрудничаем с университетами, гражданским обществом и профессиональными организациями для расширения нашего влияния.", involved_partner_btn: "Изучить партнерство",
+        involved_donate_title: "Поддержать нашу работу", involved_donate_desc: "Ваш финансовый вклад помогает нам делать наши образовательные программы доступными для всех, независимо от происхождения.", involved_donate_btn: "Пожертвовать",
+        contact_kicker: "СВЯЖИТЕСЬ С НАМИ", contact_title: "Давайте начнем<br><em>разговор.</em>", contact_desc: "Есть вопрос о наставничестве, исследованиях, волонтерстве, образовательных мероприятиях или потенциальном партнерстве? Свяжитесь с AMYLI.",
+        contact_email_title: "Напишите нам", contact_phone_title: "Позвоните нам", contact_social_title: "Следите за AMYLI",
+        form_title: "Отправьте нам сообщение", form_desc: "Заполните форму, чтобы подготовить электронное письмо в вашем почтовом приложении.",
+        form_name: "Ваше имя", form_email: "Ваш email", form_topic: "Тема", form_message: "Сообщение", form_topic_placeholder: "Выберите тему",
+        form_topic_1: "Академическое наставничество", form_topic_2: "Адаптация студентов", form_topic_3: "Здоровье и благополучие", form_topic_4: "Развитие исследований", form_topic_5: "Волонтерство", form_topic_6: "Партнерство", form_topic_7: "Пожертвование", form_topic_8: "Другой вопрос",
+        form_submit: "Подготовить письмо ↗", form_status: "Эта форма открывает ваше почтовое приложение. Она не сохраняет сообщения.",
+        footer_desc: "Образовывать. Соединять. Расти. Расширяем возможности молодых людей превращать свой потенциал в значимый прогресс.", footer_explore: "Исследовать", footer_about: "Об AMYLI", footer_programmes: "Наши программы", footer_get_involved: "Принять участие", footer_rights: "Все права защищены.", footer_back_top: "Наверх ↑"
     },
     fr: {
-        announcement_text: "Autonomiser. S'adapter. Diriger. Réussir.",
-        announcement_link: "Faites partie du voyage ↗",
+        skip_link: "Aller au contenu", announcement_text: "Autonomiser. S'adapter. Diriger. Réussir.", announcement_link: "Faites partie du voyage ↗",
         brand_subtitle: "Initiative de mentorat académique et de leadership des jeunes",
-        nav_home: "Accueil",
-        nav_about: "À propos",
-        nav_about_who: "Qui sommes-nous",
-        nav_about_mission: "Mission et vision",
-        nav_about_values: "Nos valeurs fondamentales",
-        nav_about_journey: "Notre parcours de développement",
-        nav_about_team: "Notre équipe",
-        nav_programmes: "Programmes",
-        nav_prog_education: "Mentorat académique",
-        nav_prog_adaptation: "Adaptation des étudiants",
-        nav_prog_wellbeing: "Santé et développement personnel",
-        nav_prog_research: "Développement de la recherche",
-        nav_prog_leadership: "Leadership et carrières",
-        nav_prog_workshops: "Ateliers et événements",
-        nav_prog_community: "Engagement communautaire",
-        nav_explore: "Explorer",
-        nav_exp_stories: "Ressources pédagogiques",
-        nav_exp_platform: "Plateforme numérique",
-        nav_exp_impact: "Notre contribution aux ODD",
-        nav_exp_partners: "Partenariats",
-        nav_exp_events: "Événements et activités",
-        nav_get_involved: "S'impliquer",
-        nav_contact: "Contact",
-        hero_eyebrow: "Mentorat académique et leadership des jeunes",
-        hero_title: "Autonomiser les esprits.<br><em>Façonner l'avenir.</em>",
-        hero_desc: "Former une génération de jeunes leaders compétents, confiants et socialement responsables.",
-        hero_btn_discover: "Découvrir AMYLI ↗",
-        hero_btn_programmes: "Explorer nos programmes",
-        hero_label: "Apprentissage. Leadership. Opportunité.",
-        about_logo_text: "Autonomiser. S'adapter. Diriger. Réussir.",
-        about_kicker: "QUI SOMMES-NOUS",
-        about_title: "Former des leaders compétents, confiants et <em>responsables.</em>",
+        nav_home: "Accueil", nav_about: "À propos", nav_about_who: "Qui sommes-nous", nav_about_mission: "Mission et vision", nav_about_values: "Nos valeurs fondamentales", nav_about_journey: "Notre parcours de développement", nav_about_team: "Notre équipe",
+        nav_programmes: "Programmes", nav_all_programs: "Tous les programmes", nav_explore: "Explorer", nav_all_explore: "Toutes les ressources",
+        nav_get_involved: "S'impliquer", nav_contact: "Contact",
+        hero_eyebrow: "Mentorat académique et leadership des jeunes", hero_title: "Autonomiser les esprits.<br><em>Façonner l'avenir.</em>", hero_desc: "Former une génération de jeunes leaders compétents, confiants et socialement responsables.",
+        hero_btn_discover: "Découvrir AMYLI ↗", hero_btn_programmes: "Explorer nos programmes", hero_label: "Apprentissage. Leadership. Opportunité.",
+        about_logo_text: "Autonomiser. S'adapter. Diriger. Réussir.", about_kicker: "QUI SOMMES-NOUS", about_title: "Former des leaders compétents, confiants et <em>responsables.</em>",
         about_p1: "AMYLI (Initiative de mentorat académique et de leadership des jeunes) est une initiative axée sur les jeunes, à but non lucratif et non politique, dédiée à l'autonomisation des étudiants, des jeunes professionnels, des chercheurs en herbe et des leaders émergents grâce au mentorat académique, à l'éducation, au développement personnel, au soutien à la recherche, à la formation au leadership et à l'engagement communautaire.",
         about_p2: "Nous croyons que chaque jeune mérite d'avoir accès à des conseils, des opportunités, des connaissances et des réseaux de soutien qui lui permettent de réaliser son potentiel. Grâce au mentorat, aux programmes éducatifs, aux webinaires, aux ateliers, aux activités de recherche et aux partenariats, AMYLI aide les jeunes à naviguer dans la vie académique, à développer des compétences pratiques, à établir des liens significatifs et à se préparer à un avenir professionnel et personnel réussi.",
         about_link: "Découvrir notre mission ↗",
-        mission_kicker: "NOTRE MISSION",
-        mission_title: "Autonomiser les gens par l'apprentissage.",
-        mission_desc: "Autonomiser les étudiants et les jeunes professionnels grâce à un mentorat académique accessible, une éducation, un développement de la recherche, une formation au leadership et un engagement communautaire, leur permettant d'atteindre leur plein potentiel et de contribuer de manière significative à la société.",
-        vision_kicker: "NOTRE VISION",
-        vision_title: "Une génération prête à diriger.",
-        vision_desc: "Construire une génération de jeunes professionnels académiquement forts, socialement responsables, à vocation internationale et confiants, capables de contribuer positivement à leurs communautés et pays.",
-        values_kicker: "CE QUI NOUS GUIDE",
-        values_title: "Nos <em>valeurs</em> fondamentales.",
-        values_desc: "Nos valeurs façonnent notre façon d'apprendre, de travailler ensemble, de servir les communautés et de soutenir la prochaine génération.",
-        value_1_title: "Excellence académique",
-        value_1_desc: "Encourager l'apprentissage tout au long de la vie, la curiosité intellectuelle, la pensée critique et la poursuite du savoir.",
-        value_2_title: "Mentorat et soutien mutuel",
-        value_2_desc: "Connecter les individus à travers des relations significatives qui favorisent l'orientation, l'encouragement, le partage de connaissances et la croissance personnelle.",
-        value_3_title: "Autonomisation des jeunes",
-        value_3_desc: "Doter les jeunes de la confiance, des compétences et des opportunités nécessaires pour prendre des initiatives et devenir des membres actifs de la société.",
-        value_4_title: "Inclusion et égalité des chances",
-        value_4_desc: "Promouvoir un environnement accueillant où les jeunes de différents horizons éducatifs, culturels, linguistiques et socio-économiques peuvent participer et se développer.",
-        value_5_title: "Leadership et responsabilité",
-        value_5_desc: "Encourager la prise de décision éthique, la responsabilité, l'initiative et le leadership axé sur le service.",
-        value_6_title: "Recherche et innovation",
-        value_6_desc: "Soutenir la curiosité scientifique, la pensée fondée sur des preuves, les compétences en recherche et le développement de solutions innovantes aux défis sociaux.",
-        value_7_title: "Bénévolat et service communautaire",
-        value_7_desc: "Inspirer les jeunes à utiliser leur temps, leurs connaissances et leurs compétences pour soutenir les autres et améliorer leurs communautés.",
-        value_8_title: "Intégrité et respect",
-        value_8_desc: "Maintenir l'éthique professionnelle, le respect et la compréhension interculturelle.",
-        value_9_title: "Partenariat et coopération internationale",
-        value_9_desc: "Établir des relations constructives entre les universités, les établissements d'enseignement, les communautés professionnelles, la société civile et les organisations de jeunesse.",
-        programs_kicker: "NOS PROGRAMMES",
-        programs_title: "Transformer le potentiel en <em>progrès.</em>",
-        programs_desc: "Nous connectons les jeunes avec les connaissances, les conseils, les compétences et les réseaux de soutien pour encourager le développement académique, professionnel et personnel.",
-        prog_1_title: "Mentorat académique",
-        prog_1_summary: "Connecter les étudiants avec des mentors expérimentés pour des conseils académiques.",
-        prog_1_desc: "AMYLI connecte les étudiants et les jeunes professionnels avec des mentors expérimentés, des chercheurs, des éducateurs et d'autres personnes dûment qualifiées qui peuvent fournir des conseils basés sur les intérêts, les objectifs et les besoins de développement des participants.",
-        prog_2_title: "Adaptation des étudiants",
-        prog_2_summary: "Aider les étudiants à naviguer dans la vie universitaire et les nouveaux environnements.",
-        prog_2_desc: "Commencer l'université ou étudier dans un nouveau pays peut être une transition importante. AMYLI aide les étudiants à mieux comprendre les attentes académiques, à naviguer dans la vie universitaire, à établir des liens sociaux et à développer la confiance nécessaire pour participer activement à leurs communautés éducatives.",
-        prog_3_title: "Santé et bien-être",
-        prog_3_summary: "Promouvoir le bien-être mental, la gestion du stress et les habitudes saines.",
-        prog_3_desc: "Nous reconnaissons que la réussite académique et la croissance personnelle sont étroitement liées à la santé physique, au bien-être mental, à la résilience émotionnelle et à des habitudes quotidiennes saines. AMYLI promeut la sensibilisation à la gestion du stress, à la prévention de l'épuisement professionnel, à la gestion du temps, aux modes de vie sains, à la confiance en soi et à l'équilibre travail-vie personnelle.",
-        prog_4_title: "Développement de la recherche",
-        prog_4_summary: "Renforcer la rédaction académique, la méthodologie et les compétences scientifiques.",
-        prog_4_desc: "AMYLI encourage les jeunes à développer leurs intérêts de recherche, à renforcer leurs compétences en rédaction académique et à participer à des activités scientifiques et intellectuelles.",
-        prog_5_title: "Leadership et carrières",
-        prog_5_summary: "Développer des compétences pratiques en leadership et professionnelles pour l'avenir.",
-        prog_5_desc: "AMYLI soutient le développement de compétences pratiques en leadership et professionnelles qui aident les jeunes à passer de l'éducation à des carrières significatives et au leadership communautaire.",
-        prog_6_title: "Ateliers et événements",
-        prog_6_summary: "Rassembler étudiants, mentors et professionnels pour échanger des connaissances.",
-        prog_6_desc: "AMYLI organise des activités éducatives conçues pour rassembler des étudiants, des mentors, des universitaires, des chercheurs, des professionnels, des bénévoles et des leaders de jeunesse.",
-        prog_7_title: "Engagement communautaire",
-        prog_7_summary: "Encourager le bénévolat et les projets collaboratifs qui répondent à des besoins réels.",
-        prog_7_desc: "Nous croyons que le développement significatif inclut un engagement à servir les autres. AMYLI encourage les jeunes à participer au bénévolat, au soutien par les pairs, à la sensibilisation éducative, aux projets communautaires et aux activités collaboratives qui répondent à des besoins réels.",
-        journey_kicker: "LE PARCOURS DE DÉVELOPPEMENT AMYLI",
-        journey_title: "De l'apprentissage au <em>leadership.</em>",
-        journey_desc: "Notre approche du développement des jeunes est guidée par six étapes interconnectées.",
-        journey_1_title: "S'adapter",
-        journey_1_desc: "Comprendre de nouveaux environnements, relever des défis et développer la confiance pour participer aux communautés académiques et sociales.",
-        journey_2_title: "Apprendre",
-        journey_2_desc: "Acquérir des connaissances, renforcer les compétences académiques et embrasser le développement personnel et professionnel continu.",
-        journey_3_title: "Connecter",
-        journey_3_desc: "Établir des relations significatives avec des mentors, des pairs, des éducateurs, des chercheurs et des réseaux professionnels.",
-        journey_4_title: "Diriger",
-        journey_4_desc: "Développer l'initiative, la communication, le travail d'équipe, la prise de décision et le leadership responsable.",
-        journey_5_title: "Servir",
-        journey_5_desc: "Appliquer les connaissances et les compétences par le biais du bénévolat, de l'engagement communautaire et d'activités qui profitent aux autres.",
-        journey_6_title: "Mentorer",
-        journey_6_desc: "Partager l'expérience, soutenir les autres et contribuer à une culture durable d'orientation, d'apprentissage et de croissance mutuelle.",
-        sdg_kicker: "NOS DOMAINES DE CONTRIBUTION",
-        sdg_title: "Apprendre aujourd'hui.<br><em>Contribuer demain.</em>",
-        sdg_desc: "Les activités d'AMYLI s'alignent sur plusieurs Objectifs de Développement Durable (ODD) des Nations Unies.",
-        sdg_4_title: "Éducation de qualité",
-        sdg_4_desc: "Soutenir l'apprentissage inclusif, le développement académique, le mentorat et les opportunités d'apprentissage tout au long de la vie.",
-        sdg_8_title: "Travail décent et croissance économique",
-        sdg_8_desc: "Renforcer l'employabilité, la préparation à la carrière, les compétences professionnelles et le leadership des jeunes.",
-        sdg_10_title: "Réduction des inégalités",
-        sdg_10_desc: "Promouvoir l'accès inclusif au mentorat, aux ressources éducatives et aux opportunités de développement personnel.",
-        sdg_16_title: "Paix, justice et institutions efficaces",
-        sdg_16_desc: "Encourager le leadership responsable, la responsabilité, la conduite éthique et la participation civique constructive.",
-        sdg_17_title: "Partenariats pour la réalisation des objectifs",
-        sdg_17_desc: "Développer la coopération entre les établissements d'enseignement, la société civile, les communautés professionnelles et les organisations de jeunesse.",
-        sdg_3_title: "Bonne santé et bien-être",
-        sdg_3_desc: "Promouvoir la sensibilisation à la santé, au bien-être mental, à la gestion du stress et aux modes de vie sains.",
-        team_kicker: "LES GENS DERRIÈRE LA MISSION",
-        team_title: "Les gens font la <em>mission.</em>",
-        team_desc: "Rencontrez les personnes qui aident à faire avancer le travail d'AMYLI.",
-        team_note: "Seules les informations vérifiées sur l'équipe doivent être publiées.",
-        team_cta: "Voir le profil ↗",
-        contact_kicker: "CONTACTEZ-NOUS",
-        contact_title: "Commençons une<br><em>conversation.</em>",
-        contact_desc: "Vous avez une question sur le mentorat, la recherche, le bénévolat, les activités éducatives ou un partenariat potentiel ? Contactez AMYLI.",
-        contact_email_title: "Envoyez-nous un email",
-        contact_phone_title: "Appelez-nous",
-        contact_focus_title: "Notre focus",
-        contact_focus_desc: "Mentorat académique, éducation, recherche, leadership et engagement communautaire.",
-        contact_social_title: "Suivez AMYLI",
-        form_title: "Envoyez-nous un message",
-        form_desc: "Remplissez le formulaire pour préparer un email dans votre application de messagerie.",
-        form_name: "Votre nom",
-        form_email: "Votre email",
-        form_topic: "Sujet",
-        form_message: "Message",
-        form_submit: "Préparer l'email ↗",
-        form_status: "Ce formulaire ouvre votre application de messagerie. Il ne stocke pas les messages.",
-        footer_desc: "Éduquer. Connecter. Grandir. Autonomiser les jeunes pour transformer leur potentiel en progrès significatif.",
-        footer_explore: "Explorer",
-        footer_about: "À propos d'AMYLI",
-        footer_programmes: "Nos programmes",
-        footer_get_involved: "S'impliquer",
-        footer_rights: "Tous droits réservés.",
-        footer_back_top: "Retour en haut ↑"
+        mission_kicker: "NOTRE MISSION", mission_title: "Autonomiser les gens par l'apprentissage.", mission_desc: "Autonomiser les étudiants et les jeunes professionnels grâce à un mentorat académique accessible, une éducation, un développement de la recherche, une formation au leadership et un engagement communautaire, leur permettant d'atteindre leur plein potentiel et de contribuer de manière significative à la société.",
+        vision_kicker: "NOTRE VISION", vision_title: "Une génération prête à diriger.", vision_desc: "Construire une génération de jeunes professionnels académiquement forts, socialement responsables, à vocation internationale et confiants, capables de contribuer positivement à leurs communautés et pays.",
+        values_kicker: "CE QUI NOUS GUIDE", values_title: "Nos <em>valeurs</em> fondamentales.", values_desc: "Nos valeurs façonnent notre façon d'apprendre, de travailler ensemble, de servir les communautés et de soutenir la prochaine génération.",
+        value_1_title: "Excellence académique", value_1_desc: "Encourager l'apprentissage tout au long de la vie, la curiosité intellectuelle, la pensée critique et la poursuite du savoir.",
+        value_2_title: "Mentorat et soutien mutuel", value_2_desc: "Connecter les individus à travers des relations significatives qui favorisent l'orientation, l'encouragement, le partage de connaissances et la croissance personnelle.",
+        value_3_title: "Autonomisation des jeunes", value_3_desc: "Doter les jeunes de la confiance, des compétences et des opportunités nécessaires pour prendre des initiatives et devenir des membres actifs de la société.",
+        value_4_title: "Inclusion et égalité des chances", value_4_desc: "Promouvoir un environnement accueillant où les jeunes de différents horizons éducatifs, culturels, linguistiques et socio-économiques peuvent participer et se développer.",
+        value_5_title: "Leadership et responsabilité", value_5_desc: "Encourager la prise de décision éthique, la responsabilité, l'initiative et le leadership axé sur le service.",
+        value_6_title: "Recherche et innovation", value_6_desc: "Soutenir la curiosité scientifique, la pensée fondée sur des preuves, les compétences en recherche et le développement de solutions innovantes aux défis sociaux.",
+        value_7_title: "Bénévolat et service communautaire", value_7_desc: "Inspirer les jeunes à utiliser leur temps, leurs connaissances et leurs compétences pour soutenir les autres et améliorer leurs communautés.",
+        value_8_title: "Intégrité et respect", value_8_desc: "Maintenir l'éthique professionnelle, le respect et la compréhension interculturelle.",
+        value_9_title: "Partenariat et coopération internationale", value_9_desc: "Établir des relations constructives entre les universités, les établissements d'enseignement, les communautés professionnelles, la société civile et les organisations de jeunesse.",
+        programs_kicker: "NOS PROGRAMMES", programs_title: "Transformer le potentiel en <em>progrès.</em>", programs_desc: "Nous connectons les jeunes avec les connaissances, les conseils, les compétences et les réseaux de soutien pour encourager le développement académique, professionnel et personnel.",
+        prog_1_title: "Mentorat académique", prog_1_summary: "Connecter les étudiants avec des mentors expérimentés pour des conseils académiques.", prog_1_desc: "AMYLI connecte les étudiants et les jeunes professionnels avec des mentors expérimentés, des chercheurs, des éducateurs et d'autres personnes dûment qualifiées qui peuvent fournir des conseils basés sur les intérêts, les objectifs et les besoins de développement des participants.", prog_1_extra: "Notre modèle de mentorat est basé sur la confiance, la constance et le respect mutuel. Nous jumelons soigneusement les mentorés avec des mentors qui peuvent offrir non seulement des conseils académiques, mais aussi des conseils de carrière et des encouragements personnels. Grâce à des bilans réguliers et à une fixation d'objectifs structurée, nous veillons à ce que chaque participant se sente soutenu dans son parcours académique unique.",
+        prog_2_title: "Adaptation des étudiants", prog_2_summary: "Aider les étudiants à naviguer dans la vie universitaire et les nouveaux environnements.", prog_2_desc: "Commencer l'université ou étudier dans un nouveau pays peut être une transition importante. AMYLI aide les étudiants à mieux comprendre les attentes académiques, à naviguer dans la vie universitaire, à établir des liens sociaux et à développer la confiance nécessaire pour participer activement à leurs communautés éducatives.", prog_2_extra: "Nous offrons un soutien pratique aux étudiants internationaux et à ceux qui entrent dans l'enseignement supérieur pour la première fois. Cela comprend des sessions d'orientation, des ateliers d'intégration culturelle et des réseaux de soutien par les pairs. En favorisant un sentiment d'appartenance, nous aidons les étudiants à surmonter les défis initiaux et à s'épanouir dans leur nouvel environnement.",
+        prog_3_title: "Santé et bien-être", prog_3_summary: "Promouvoir le bien-être mental, la gestion du stress et les habitudes saines.", prog_3_desc: "Nous reconnaissons que la réussite académique et la croissance personnelle sont étroitement liées à la santé physique, au bien-être mental, à la résilience émotionnelle et à des habitudes quotidiennes saines. AMYLI promeut la sensibilisation à la gestion du stress, à la prévention de l'épuisement professionnel, à la gestion du temps, aux modes de vie sains, à la confiance en soi et à l'équilibre travail-vie personnelle.", prog_3_extra: "Nos initiatives de bien-être comprennent des webinaires dirigés par des experts, des séances de pleine conscience et des ressources sur la gestion de la pression académique. Nous visons à déstigmatiser les discussions sur la santé mentale et à doter les jeunes des outils dont ils ont besoin pour maintenir un équilibre sain entre leurs études et leur vie personnelle.",
+        prog_4_title: "Développement de la recherche", prog_4_summary: "Renforcer la rédaction académique, la méthodologie et les compétences scientifiques.", prog_4_desc: "AMYLI encourage les jeunes à développer leurs intérêts de recherche, à renforcer leurs compétences en rédaction académique et à participer à des activités scientifiques et intellectuelles.", prog_4_extra: "Nous proposons des ateliers sur les méthodologies de recherche, l'intégrité académique et la publication. Les participants ont l'opportunité de collaborer sur des projets, de recevoir des commentaires sur leur travail et de se connecter avec des chercheurs établis, jetant ainsi une base solide pour leurs futures activités académiques et professionnelles.",
+        journey_kicker: "LE PARCOURS DE DÉVELOPPEMENT AMYLI", journey_title: "De l'apprentissage au <em>leadership.</em>", journey_desc: "Notre approche du développement des jeunes est guidée par six étapes interconnectées.",
+        journey_1_title: "S'adapter", journey_1_desc: "Comprendre de nouveaux environnements, relever des défis et développer la confiance pour participer aux communautés académiques et sociales.",
+        journey_2_title: "Apprendre", journey_2_desc: "Acquérir des connaissances, renforcer les compétences académiques et embrasser le développement personnel et professionnel continu.",
+        journey_3_title: "Connecter", journey_3_desc: "Établir des relations significatives avec des mentors, des pairs, des éducateurs, des chercheurs et des réseaux professionnels.",
+        journey_4_title: "Diriger", journey_4_desc: "Développer l'initiative, la communication, le travail d'équipe, la prise de décision et le leadership responsable.",
+        journey_5_title: "Servir", journey_5_desc: "Appliquer les connaissances et les compétences par le biais du bénévolat, de l'engagement communautaire et d'activités qui profitent aux autres.",
+        journey_6_title: "Mentorer", journey_6_desc: "Partager l'expérience, soutenir les autres et contribuer à une culture durable d'orientation, d'apprentissage et de croissance mutuelle.",
+        sdg_kicker: "NOS DOMAINES DE CONTRIBUTION", sdg_title: "Apprendre aujourd'hui.<br><em>Contribuer demain.</em>", sdg_desc: "Les activités d'AMYLI s'alignent sur plusieurs Objectifs Mondiaux des Nations Unies.", sdg_extra: "En alignant notre travail sur ces objectifs mondiaux, nous veillons à ce que nos actions locales contribuent à un impact plus large et durable. Nous mesurons notre succès non seulement par le nombre de participants, mais aussi par l'efficacité avec laquelle nous aidons à construire un monde plus équitable et plus éduqué, en favorisant une génération consciente de son rôle dans la société mondiale.",
+        sdg_4_title: "Éducation de qualité", sdg_4_desc: "Soutenir l'apprentissage inclusif, le développement académique, le mentorat et les opportunités d'apprentissage tout au long de la vie.",
+        sdg_8_title: "Travail décent et croissance économique", sdg_8_desc: "Renforcer l'employabilité, la préparation à la carrière, les compétences professionnelles et le leadership des jeunes.",
+        sdg_10_title: "Réduction des inégalités", sdg_10_desc: "Promouvoir l'accès inclusif au mentorat, aux ressources éducatives et aux opportunités de développement personnel.",
+        sdg_16_title: "Paix, justice et institutions efficaces", sdg_16_desc: "Encourager le leadership responsable, la responsabilité, la conduite éthique et la participation civique constructive.",
+        sdg_17_title: "Partenariats pour la réalisation des objectifs", sdg_17_desc: "Développer la coopération entre les établissements d'enseignement, la société civile, les communautés professionnelles et les organisations de jeunesse.",
+        sdg_3_title: "Bonne santé et bien-être", sdg_3_desc: "Promouvoir la sensibilisation à la santé, au bien-être mental, à la gestion du stress et aux modes de vie sains.",
+        team_kicker: "LES GENS DERRIÈRE LA MISSION", team_title: "Les gens font la <em>mission.</em>", team_desc: "Rencontrez les personnes qui aident à faire avancer le travail d'AMYLI.", team_note: "Seules les informations vérifiées sur l'équipe doivent être publiées.", team_cta: "Voir le profil ↗",
+        partners_kicker: "TRAVAILLER ENSEMBLE", partners_title: "Nos partenaires et <em>sponsors.</em>", partners_desc: "Nous collaborons avec des organisations qui partagent notre vision de l'autonomisation des jeunes et de l'éducation.",
+        explore_title: "Ressources & <em>Opportunités.</em>", explore_desc: "Découvrez nos plateformes numériques, nos ressources pédagogiques et notre contribution aux objectifs mondiaux.",
+        involved_kicker: "REJOIGNEZ LA MISSION", involved_title: "Il y a une place pour <em>chacun.</em>", involved_desc: "Que vous souhaitiez apprendre, diriger ou redonner, vous pouvez faire la différence avec AMYLI.",
+        involved_volunteer_title: "Bénévolat & Mentorat", involved_volunteer_desc: "Partagez votre expertise, guidez un étudiant ou aidez-nous à organiser des événements. Nous recherchons toujours des mentors et des bénévoles dévoués.", involved_volunteer_btn: "Devenir bénévole",
+        involved_partner_title: "Devenir partenaire", involved_partner_desc: "Nous collaborons avec des universités, la société civile et des organisations professionnelles pour élargir notre impact.", involved_partner_btn: "Explorer les partenariats",
+        involved_donate_title: "Soutenir notre travail", involved_donate_desc: "Votre contribution financière nous aide à garder nos programmes éducatifs accessibles à tous, quel que soit leur milieu.", involved_donate_btn: "Faire un don",
+        contact_kicker: "CONTACTEZ-NOUS", contact_title: "Commençons une<br><em>conversation.</em>", contact_desc: "Vous avez une question sur le mentorat, la recherche, le bénévolat, les activités éducatives ou un partenariat potentiel ? Contactez AMYLI.",
+        contact_email_title: "Envoyez-nous un email", contact_phone_title: "Appelez-nous", contact_social_title: "Suivez AMYLI",
+        form_title: "Envoyez-nous un message", form_desc: "Remplissez le formulaire pour préparer un email dans votre application de messagerie.",
+        form_name: "Votre nom", form_email: "Votre email", form_topic: "Sujet", form_message: "Message", form_topic_placeholder: "Choisissez un sujet",
+        form_topic_1: "Mentorat académique", form_topic_2: "Adaptation des étudiants", form_topic_3: "Santé et bien-être", form_topic_4: "Développement de la recherche", form_topic_5: "Bénévolat", form_topic_6: "Partenariat", form_topic_7: "Don", form_topic_8: "Autre demande",
+        form_submit: "Préparer l'email ↗", form_status: "Ce formulaire ouvre votre application de messagerie. Il ne stocke pas les messages.",
+        footer_desc: "Éduquer. Connecter. Grandir. Autonomiser les jeunes pour transformer leur potentiel en progrès significatif.", footer_explore: "Explorer", footer_about: "À propos d'AMYLI", footer_programmes: "Nos programmes", footer_get_involved: "S'impliquer", footer_rights: "Tous droits réservés.", footer_back_top: "Retour en haut ↑"
     },
     es: {
-        announcement_text: "Empoderar. Adaptarse. Liderar. Tener éxito.",
-        announcement_link: "Sé parte del viaje ↗",
+        skip_link: "Saltar al contenido", announcement_text: "Empoderar. Adaptarse. Liderar. Tener éxito.", announcement_link: "Sé parte del viaje ↗",
         brand_subtitle: "Iniciativa de Mentoría Académica y Liderazgo Juvenil",
-        nav_home: "Inicio",
-        nav_about: "Acerca de",
-        nav_about_who: "Quiénes somos",
-        nav_about_mission: "Misión y visión",
-        nav_about_values: "Nuestros valores fundamentales",
-        nav_about_journey: "Nuestro viaje de desarrollo",
-        nav_about_team: "Nuestro equipo",
-        nav_programmes: "Programas",
-        nav_prog_education: "Mentoría académica",
-        nav_prog_adaptation: "Adaptación estudiantil",
-        nav_prog_wellbeing: "Salud y desarrollo personal",
-        nav_prog_research: "Desarrollo de investigación",
-        nav_prog_leadership: "Liderazgo y carreras",
-        nav_prog_workshops: "Talleres y eventos",
-        nav_prog_community: "Compromiso comunitario",
-        nav_explore: "Explorar",
-        nav_exp_stories: "Recursos de aprendizaje",
-        nav_exp_platform: "Plataforma digital",
-        nav_exp_impact: "Nuestra contribución a los ODS",
-        nav_exp_partners: "Alianzas",
-        nav_exp_events: "Eventos y actividades",
-        nav_get_involved: "Involúcrate",
-        nav_contact: "Contacto",
-        hero_eyebrow: "Mentoría académica y liderazgo juvenil",
-        hero_title: "Empoderar mentes.<br><em>Moldear futuros.</em>",
-        hero_desc: "Construyendo una generación de jóvenes líderes conocimientos, seguros y socialmente responsables.",
-        hero_btn_discover: "Descubre AMYLI ↗",
-        hero_btn_programmes: "Explora nuestros programas",
-        hero_label: "Aprendizaje. Liderazgo. Oportunidad.",
-        about_logo_text: "Empoderar. Adaptarse. Liderar. Tener éxito.",
-        about_kicker: "QUIÉNES SOMOS",
-        about_title: "Construyendo líderes conocimientos, seguros y <em>responsables.</em>",
+        nav_home: "Inicio", nav_about: "Acerca de", nav_about_who: "Quiénes somos", nav_about_mission: "Misión y visión", nav_about_values: "Nuestros valores fundamentales", nav_about_journey: "Nuestro viaje de desarrollo", nav_about_team: "Nuestro equipo",
+        nav_programmes: "Programas", nav_all_programs: "Todos los programas", nav_explore: "Explorar", nav_all_explore: "Todos los recursos",
+        nav_get_involved: "Involúcrate", nav_contact: "Contacto",
+        hero_eyebrow: "Mentoría académica y liderazgo juvenil", hero_title: "Empoderar mentes.<br><em>Moldear futuros.</em>", hero_desc: "Construyendo una generación de jóvenes líderes conocimientos, seguros y socialmente responsables.",
+        hero_btn_discover: "Descubre AMYLI ↗", hero_btn_programmes: "Explora nuestros programas", hero_label: "Aprendizaje. Liderazgo. Oportunidad.",
+        about_logo_text: "Empoderar. Adaptarse. Liderar. Tener éxito.", about_kicker: "QUIÉNES SOMOS", about_title: "Construyendo líderes conocimientos, seguros y <em>responsables.</em>",
         about_p1: "AMYLI (Iniciativa de Mentoría Académica y Liderazgo Juvenil) es una iniciativa centrada en los jóvenes, sin fines de lucro y no política, dedicada a empoderar a estudiantes, jóvenes profesionales, aspirantes a investigadores y líderes emergentes a través de la mentoría académica, la educación, el desarrollo personal, el apoyo a la investigación, la capacitación en liderazgo y el compromiso comunitario.",
         about_p2: "Creemos que cada joven merece tener acceso a orientación, oportunidades, conocimiento y redes de apoyo que les permitan realizar su potencial. A través de la mentoría, programas educativos, seminarios web, talleres, actividades de investigación y alianzas, AMYLI ayuda a los jóvenes a navegar la vida académica, desarrollar habilidades prácticas, construir conexiones significativas y prepararse para futuros profesionales y personales exitosos.",
         about_link: "Descubre nuestra misión ↗",
-        mission_kicker: "NUESTRA MISIÓN",
-        mission_title: "Empoderar a las personas a través del aprendizaje.",
-        mission_desc: "Empoderar a estudiantes y jóvenes profesionales a través de mentoría académica accesible, educación, desarrollo de investigación, capacitación en liderazgo y compromiso comunitario, permitiéndoles alcanzar su máximo potencial y contribuir significativamente a la sociedad.",
-        vision_kicker: "NUESTRA VISIÓN",
-        vision_title: "Una generación lista para liderar.",
-        vision_desc: "Construir una generación de jóvenes profesionales académicamente fuertes, socialmente responsables, con mentalidad internacional y seguros, capaces de contribuir positivamente a sus comunidades y países.",
-        values_kicker: "LO QUE NOS GUÍA",
-        values_title: "Nuestros <em>valores</em> fundamentales.",
-        values_desc: "Nuestros valores dan forma a cómo aprendemos, trabajamos juntos, servimos a las comunidades y apoyamos a la próxima generación.",
-        value_1_title: "Excelencia académica",
-        value_1_desc: "Fomentar el aprendizaje permanente, la curiosidad intelectual, el pensamiento crítico y la búsqueda del conocimiento.",
-        value_2_title: "Mentoría y apoyo mutuo",
-        value_2_desc: "Conectar a las personas a través de relaciones significativas que promuevan la orientación, el estímulo, el intercambio de conocimientos y el crecimiento personal.",
-        value_3_title: "Empoderamiento juvenil",
-        value_3_desc: "Equipar a los jóvenes con la confianza, las habilidades y las oportunidades para tomar la iniciativa y convertirse en contribuyentes activos de la sociedad.",
-        value_4_title: "Inclusión e igualdad de oportunidades",
-        value_4_desc: "Promover un entorno acogedor donde los jóvenes de diferentes orígenes educativos, culturales, lingüísticos y socioeconómicos puedan participar y desarrollarse.",
-        value_5_title: "Liderazgo y responsabilidad",
-        value_5_desc: "Fomentar la toma de decisiones éticas, la responsabilidad, la iniciativa y el liderazgo orientado al servicio.",
-        value_6_title: "Investigación e innovación",
-        value_6_desc: "Apoyar la curiosidad científica, el pensamiento basado en evidencias, las habilidades de investigación y el desarrollo de soluciones innovadoras a los desafíos sociales.",
-        value_7_title: "Voluntariado y servicio comunitario",
-        value_7_desc: "Inspirar a los jóvenes a usar su tiempo, conocimiento y habilidades para apoyar a otros y mejorar sus comunidades.",
-        value_8_title: "Integridad y respeto",
-        value_8_desc: "Mantener la ética profesional, el respeto y la comprensión intercultural.",
-        value_9_title: "Alianza y cooperación internacional",
-        value_9_desc: "Construir relaciones constructivas entre universidades, instituciones educativas, comunidades profesionales, sociedad civil y organizaciones juveniles.",
-        programs_kicker: "NUESTROS PROGRAMAS",
-        programs_title: "Convertir el potencial en <em>progreso.</em>",
-        programs_desc: "Conectamos a los jóvenes con conocimiento, orientación, habilidades y redes de apoyo para fomentar el desarrollo académico, profesional y personal.",
-        prog_1_title: "Mentoría académica",
-        prog_1_summary: "Conectar a estudiantes con mentores experimentados para orientación académica.",
-        prog_1_desc: "AMYLI conecta a estudiantes y jóvenes profesionales con mentores experimentados, investigadores, educadores y otras personas debidamente calificadas que pueden brindar orientación basada en los intereses, metas y necesidades de desarrollo de los participantes.",
-        prog_2_title: "Adaptación estudiantil",
-        prog_2_summary: "Ayudar a los estudiantes a navegar la vida universitaria y nuevos entornos.",
-        prog_2_desc: "Comenzar la universidad o estudiar en un nuevo país puede ser una transición significativa. AMYLI ayuda a los estudiantes a comprender mejor las expectativas académicas, navegar la vida universitaria, construir conexiones sociales y desarrollar la confianza para participar activamente en sus comunidades educativas.",
-        prog_3_title: "Salud y bienestar",
-        prog_3_summary: "Promover el bienestar mental, el manejo del estrés y los hábitos saludables.",
-        prog_3_desc: "Reconocemos que el éxito académico y el crecimiento personal están estrechamente relacionados con la salud física, el bienestar mental, la resiliencia emocional y los hábitos diarios saludables. AMYLI promueve la conciencia sobre el manejo del estrés, la prevención del agotamiento, la gestión del tiempo, los estilos de vida saludables, la confianza en uno mismo y el equilibrio trabajo-vida.",
-        prog_4_title: "Desarrollo de investigación",
-        prog_4_summary: "Fortalecer la redacción académica, la metodología y las habilidades científicas.",
-        prog_4_desc: "AMYLI alienta a los jóvenes a desarrollar sus intereses de investigación, fortalecer las habilidades de escritura académica y participar en actividades científicas e intelectuales.",
-        prog_5_title: "Liderazgo y carreras",
-        prog_5_summary: "Desarrollar habilidades prácticas de liderazgo y profesionales para futuras carreras.",
-        prog_5_desc: "AMYLI apoya el desarrollo de habilidades prácticas de liderazgo y profesionales que ayudan a los jóvenes a hacer la transición de la educación a carreras significativas y liderazgo comunitario.",
-        prog_6_title: "Talleres y eventos",
-        prog_6_summary: "Reunir a estudiantes, mentores y profesionales para intercambiar conocimientos.",
-        prog_6_desc: "AMYLI organiza actividades educativas diseñadas para reunir a estudiantes, mentores, académicos, investigadores, profesionales, voluntarios y líderes juveniles.",
-        prog_7_title: "Compromiso comunitario",
-        prog_7_summary: "Fomentar el voluntariado y proyectos colaborativos que respondan a necesidades reales.",
-        prog_7_desc: "Creemos que el desarrollo significativo incluye un compromiso de servir a los demás. AMYLI alienta a los jóvenes a participar en voluntariado, apoyo entre pares, divulgación educativa, proyectos comunitarios y actividades colaborativas que respondan a necesidades reales.",
-        journey_kicker: "EL VIAJE DE DESARROLLO DE AMYLI",
-        journey_title: "Del aprendizaje al <em>liderazgo.</em>",
-        journey_desc: "Nuestro enfoque para el desarrollo juvenil se guía por seis etapas interconectadas.",
-        journey_1_title: "Adaptarse",
-        journey_1_desc: "Comprender nuevos entornos, superar desafíos y desarrollar la confianza para participar en comunidades académicas y sociales.",
-        journey_2_title: "Aprender",
-        journey_2_desc: "Adquirir conocimientos, fortalecer habilidades académicas y abrazar el desarrollo personal y profesional continuo.",
-        journey_3_title: "Conectar",
-        journey_3_desc: "Construir relaciones significativas con mentores, compañeros, educadores, investigadores y redes profesionales.",
-        journey_4_title: "Liderar",
-        journey_4_desc: "Desarrollar iniciativa, comunicación, trabajo en equipo, toma de decisiones y liderazgo responsable.",
-        journey_5_title: "Servir",
-        journey_5_desc: "Aplicar conocimientos y habilidades a través del voluntariado, el compromiso comunitario y actividades que beneficien a otros.",
-        journey_6_title: "Mentorizar",
-        journey_6_desc: "Compartir experiencia, apoyar a otros y contribuir a una cultura sostenible de orientación, aprendizaje y crecimiento mutuo.",
-        sdg_kicker: "NUESTRAS ÁREAS DE CONTRIBUCIÓN",
-        sdg_title: "Aprender hoy.<br><em>Contribuir mañana.</em>",
-        sdg_desc: "Las actividades de AMYLI se alinean con varios Objetivos de Desarrollo Sostenible (ODS) de las Naciones Unidas.",
-        sdg_4_title: "Educación de calidad",
-        sdg_4_desc: "Apoyar el aprendizaje inclusivo, el desarrollo académico, la mentoría y las oportunidades de aprendizaje permanente.",
-        sdg_8_title: "Trabajo decente y crecimiento económico",
-        sdg_8_desc: "Fortalecer la empleabilidad, la preparación profesional, las habilidades profesionales y el liderazgo juvenil.",
-        sdg_10_title: "Reducción de las desigualdades",
-        sdg_10_desc: "Promover el acceso inclusivo a la mentoría, los recursos educativos y las oportunidades de desarrollo personal.",
-        sdg_16_title: "Paz, justicia e instituciones sólidas",
-        sdg_16_desc: "Fomentar el liderazgo responsable, la rendición de cuentas, la conducta ética y la participación cívica constructiva.",
-        sdg_17_title: "Alianzas para lograr los objetivos",
-        sdg_17_desc: "Desarrollar la cooperación entre instituciones educativas, sociedad civil, comunidades profesionales y organizaciones juveniles.",
-        sdg_3_title: "Salud y bienestar",
-        sdg_3_desc: "Promover la conciencia sobre la salud, el bienestar mental, el manejo del estrés y los estilos de vida saludables.",
-        team_kicker: "LAS PERSONAS DETRÁS DE LA MISIÓN",
-        team_title: "Las personas hacen la <em>misión.</em>",
-        team_desc: "Conoce a las personas que ayudan a avanzar el trabajo de AMYLI.",
-        team_note: "Solo se debe publicar información verificada del equipo.",
-        team_cta: "Ver perfil ↗",
-        contact_kicker: "PONTE EN CONTACTO",
-        contact_title: "Comencemos una<br><em>conversación.</em>",
-        contact_desc: "¿Tienes alguna pregunta sobre mentoría, investigación, voluntariado, actividades educativas o una posible alianza? Contacta a AMYLI.",
-        contact_email_title: "Envíanos un correo",
-        contact_phone_title: "Llámanos",
-        contact_focus_title: "Nuestro enfoque",
-        contact_focus_desc: "Mentoría académica, educación, investigación, liderazgo y compromiso comunitario.",
-        contact_social_title: "Sigue a AMYLI",
-        form_title: "Envíanos un mensaje",
-        form_desc: "Completa el formulario para preparar un correo electrónico en tu aplicación de correo.",
-        form_name: "Tu nombre",
-        form_email: "Tu correo",
-        form_topic: "Asunto",
-        form_message: "Mensaje",
-        form_submit: "Preparar correo ↗",
-        form_status: "Este formulario abre tu aplicación de correo. No almacena mensajes.",
-        footer_desc: "Educar. Conectar. Crecer. Empoderar a los jóvenes para convertir su potencial en progreso significativo.",
-        footer_explore: "Explorar",
-        footer_about: "Acerca de AMYLI",
-        footer_programmes: "Nuestros programas",
-        footer_get_involved: "Involúcrate",
-        footer_rights: "Todos los derechos reservados.",
-        footer_back_top: "Volver arriba ↑"
+        mission_kicker: "NUESTRA MISIÓN", mission_title: "Empoderar a las personas a través del aprendizaje.", mission_desc: "Empoderar a estudiantes y jóvenes profesionales a través de mentoría académica accesible, educación, desarrollo de investigación, capacitación en liderazgo y compromiso comunitario, permitiéndoles alcanzar su máximo potencial y contribuir significativamente a la sociedad.",
+        vision_kicker: "NUESTRA VISIÓN", vision_title: "Una generación lista para liderar.", vision_desc: "Construir una generación de jóvenes profesionales académicamente fuertes, socialmente responsables, con mentalidad internacional y seguros, capaces de contribuir positivamente a sus comunidades y países.",
+        values_kicker: "LO QUE NOS GUÍA", values_title: "Nuestros <em>valores</em> fundamentales.", values_desc: "Nuestros valores dan forma a cómo aprendemos, trabajamos juntos, servimos a las comunidades y apoyamos a la próxima generación.",
+        value_1_title: "Excelencia académica", value_1_desc: "Fomentar el aprendizaje permanente, la curiosidad intelectual, el pensamiento crítico y la búsqueda del conocimiento.",
+        value_2_title: "Mentoría y apoyo mutuo", value_2_desc: "Conectar a las personas a través de relaciones significativas que promuevan la orientación, el estímulo, el intercambio de conocimientos y el crecimiento personal.",
+        value_3_title: "Empoderamiento juvenil", value_3_desc: "Equipar a los jóvenes con la confianza, las habilidades y las oportunidades para tomar la iniciativa y convertirse en contribuyentes activos de la sociedad.",
+        value_4_title: "Inclusión e igualdad de oportunidades", value_4_desc: "Promover un entorno acogedor donde los jóvenes de diferentes orígenes educativos, culturales, lingüísticos y socioeconómicos puedan participar y desarrollarse.",
+        value_5_title: "Liderazgo y responsabilidad", value_5_desc: "Fomentar la toma de decisiones éticas, la responsabilidad, la iniciativa y el liderazgo orientado al servicio.",
+        value_6_title: "Investigación e innovación", value_6_desc: "Apoyar la curiosidad científica, el pensamiento basado en evidencias, las habilidades de investigación y el desarrollo de soluciones innovadoras a los desafíos sociales.",
+        value_7_title: "Voluntariado y servicio comunitario", value_7_desc: "Inspirar a los jóvenes a usar su tiempo, conocimiento y habilidades para apoyar a otros y mejorar sus comunidades.",
+        value_8_title: "Integridad y respeto", value_8_desc: "Mantener la ética profesional, el respeto y la comprensión intercultural.",
+        value_9_title: "Alianza y cooperación internacional", value_9_desc: "Construir relaciones constructivas entre universidades, instituciones educativas, comunidades profesionales, sociedad civil y organizaciones juveniles.",
+        programs_kicker: "NUESTROS PROGRAMAS", programs_title: "Convertir el potencial en <em>progreso.</em>", programs_desc: "Conectamos a los jóvenes con conocimiento, orientación, habilidades y redes de apoyo para fomentar el desarrollo académico, profesional y personal.",
+        prog_1_title: "Mentoría académica", prog_1_summary: "Conectar a estudiantes con mentores experimentados para orientación académica.", prog_1_desc: "AMYLI conecta a estudiantes y jóvenes profesionales con mentores experimentados, investigadores, educadores y otras personas debidamente calificadas que pueden brindar orientación basada en los intereses, metas y necesidades de desarrollo de los participantes.", prog_1_extra: "Nuestro modelo de mentoría se basa en la confianza, la constancia y el respeto mutuo. Emparejamos cuidadosamente a los aprendices con mentores que pueden ofrecer no solo consejos académicos, sino también orientación profesional y apoyo personal. A través de reuniones regulares y el establecimiento de objetivos estructurados, nos aseguramos de que cada participante se sienta apoyado en su trayectoria académica única.",
+        prog_2_title: "Adaptación estudiantil", prog_2_summary: "Ayudar a los estudiantes a navegar la vida universitaria y nuevos entornos.", prog_2_desc: "Comenzar la universidad o estudiar en un nuevo país puede ser una transición significativa. AMYLI ayuda a los estudiantes a comprender mejor las expectativas académicas, navegar la vida universitaria, construir conexiones sociales y desarrollar la confianza para participar activamente en sus comunidades educativas.", prog_2_extra: "Brindamos apoyo práctico a estudiantes internacionales y a aquellos que ingresan a la educación superior por primera vez. Esto incluye sesiones de orientación, talleres de integración cultural y redes de apoyo entre pares. Al fomentar un sentido de pertenencia, ayudamos a los estudiantes a superar los desafíos iniciales y prosperar en sus nuevos entornos.",
+        prog_3_title: "Salud y bienestar", prog_3_summary: "Promover el bienestar mental, el manejo del estrés y los hábitos saludables.", prog_3_desc: "Reconocemos que el éxito académico y el crecimiento personal están estrechamente relacionados con la salud física, el bienestar mental, la resiliencia emocional y los hábitos diarios saludables. AMYLI promueve la conciencia sobre el manejo del estrés, la prevención del agotamiento, la gestión del tiempo, los estilos de vida saludables, la confianza en uno mismo y el equilibrio trabajo-vida.", prog_3_extra: "Nuestras iniciativas de bienestar incluyen seminarios web dirigidos por expertos, sesiones de atención plena y recursos sobre cómo manejar la presión académica. Nuestro objetivo es desestigmatizar las conversaciones sobre salud mental y equipar a los jóvenes con las herramientas que necesitan para mantener un equilibrio saludable entre sus estudios y su vida personal.",
+        prog_4_title: "Desarrollo de investigación", prog_4_summary: "Fortalecer la redacción académica, la metodología y las habilidades científicas.", prog_4_desc: "AMYLI alienta a los jóvenes a desarrollar sus intereses de investigación, fortalecer las habilidades de escritura académica y participar en actividades científicas e intelectuales.", prog_4_extra: "Ofrecemos talleres sobre metodologías de investigación, integridad académica y publicación. Los participantes tienen la oportunidad de colaborar en proyectos, recibir comentarios sobre su trabajo y conectarse con investigadores establecidos, sentando una base sólida para futuras actividades académicas y profesionales.",
+        journey_kicker: "EL VIAJE DE DESARROLLO DE AMYLI", journey_title: "Del aprendizaje al <em>liderazgo.</em>", journey_desc: "Nuestro enfoque para el desarrollo juvenil se guía por seis etapas interconectadas.",
+        journey_1_title: "Adaptarse", journey_1_desc: "Comprender nuevos entornos, superar desafíos y desarrollar la confianza para participar en comunidades académicas y sociales.",
+        journey_2_title: "Aprender", journey_2_desc: "Adquirir conocimientos, fortalecer habilidades académicas y abrazar el desarrollo personal y profesional continuo.",
+        journey_3_title: "Conectar", journey_3_desc: "Construir relaciones significativas con mentores, compañeros, educadores, investigadores y redes profesionales.",
+        journey_4_title: "Liderar", journey_4_desc: "Desarrollar iniciativa, comunicación, trabajo en equipo, toma de decisiones y liderazgo responsable.",
+        journey_5_title: "Servir", journey_5_desc: "Aplicar conocimientos y habilidades a través del voluntariado, el compromiso comunitario y actividades que beneficien a otros.",
+        journey_6_title: "Mentorizar", journey_6_desc: "Compartir experiencia, apoyar a otros y contribuir a una cultura sostenible de orientación, aprendizaje y crecimiento mutuo.",
+        sdg_kicker: "NUESTRAS ÁREAS DE CONTRIBUCIÓN", sdg_title: "Aprender hoy.<br><em>Contribuir mañana.</em>", sdg_desc: "Las actividades de AMYLI se alinean con varios Objetivos Globales de las Naciones Unidas.", sdg_extra: "Al alinear nuestro trabajo con estos objetivos globales, aseguramos que nuestras acciones locales contribuyan a un impacto más amplio y sostenible. Medimos nuestro éxito no solo por la cantidad de participantes, sino por la eficacia con la que ayudamos a construir un mundo más equitativo y educado, fomentando una generación consciente de su papel en la sociedad global.",
+        sdg_4_title: "Educación de calidad", sdg_4_desc: "Apoyar el aprendizaje inclusivo, el desarrollo académico, la mentoría y las oportunidades de aprendizaje permanente.",
+        sdg_8_title: "Trabajo decente y crecimiento económico", sdg_8_desc: "Fortalecer la empleabilidad, la preparación profesional, las habilidades profesionales y el liderazgo juvenil.",
+        sdg_10_title: "Reducción de las desigualdades", sdg_10_desc: "Promover el acceso inclusivo a la mentoría, los recursos educativos y las oportunidades de desarrollo personal.",
+        sdg_16_title: "Paz, justicia e instituciones sólidas", sdg_16_desc: "Fomentar el liderazgo responsable, la rendición de cuentas, la conducta ética y la participación cívica constructiva.",
+        sdg_17_title: "Alianzas para lograr los objetivos", sdg_17_desc: "Desarrollar la cooperación entre instituciones educativas, sociedad civil, comunidades profesionales y organizaciones juveniles.",
+        sdg_3_title: "Salud y bienestar", sdg_3_desc: "Promover la conciencia sobre la salud, el bienestar mental, el manejo del estrés y los estilos de vida saludables.",
+        team_kicker: "LAS PERSONAS DETRÁS DE LA MISIÓN", team_title: "Las personas hacen la <em>misión.</em>", team_desc: "Conoce a las personas que ayudan a avanzar el trabajo de AMYLI.", team_note: "Solo se debe publicar información verificada del equipo.", team_cta: "Ver perfil ↗",
+        partners_kicker: "TRABAJANDO JUNTOS", partners_title: "Nuestros socios y <em>patrocinadores.</em>", partners_desc: "Colaboramos con organizaciones que comparten nuestra visión de empoderamiento juvenil y educación.",
+        explore_title: "Recursos y <em>Oportunidades.</em>", explore_desc: "Descubre nuestras plataformas digitales, recursos de aprendizaje y cómo estamos contribuyendo a los objetivos globales.",
+        involved_kicker: "ÚNETE A LA MISIÓN", involved_title: "Hay un lugar para <em>todos.</em>", involved_desc: "Ya sea que quieras aprender, liderar o retribuir, puedes marcar la diferencia con AMYLI.",
+        involved_volunteer_title: "Voluntariado y Mentoría", involved_volunteer_desc: "Comparte tu experiencia, guía a un estudiante o ayúdanos a organizar eventos. Siempre buscamos mentores y voluntarios dedicados.", involved_volunteer_btn: "Ser voluntario",
+        involved_partner_title: "Ser socio", involved_partner_desc: "Colaboramos con universidades, sociedad civil y organizaciones profesionales para ampliar nuestro impacto.", involved_partner_btn: "Explorar alianzas",
+        involved_donate_title: "Apoya nuestro trabajo", involved_donate_desc: "Tu contribución financiera nos ayuda a mantener nuestros programas educativos accesibles para todos, independientemente de su origen.", involved_donate_btn: "Donar",
+        contact_kicker: "PONTE EN CONTACTO", contact_title: "Comencemos una<br><em>conversación.</em>", contact_desc: "¿Tienes alguna pregunta sobre mentoría, investigación, voluntariado, actividades educativas o una posible alianza? Contacta a AMYLI.",
+        contact_email_title: "Envíanos un correo", contact_phone_title: "Llámanos", contact_social_title: "Sigue a AMYLI",
+        form_title: "Envíanos un mensaje", form_desc: "Completa el formulario para preparar un correo electrónico en tu aplicación de correo.",
+        form_name: "Tu nombre", form_email: "Tu correo", form_topic: "Asunto", form_message: "Mensaje", form_topic_placeholder: "Selecciona un tema",
+        form_topic_1: "Mentoría académica", form_topic_2: "Adaptación estudiantil", form_topic_3: "Salud y bienestar", form_topic_4: "Desarrollo de investigación", form_topic_5: "Voluntariado", form_topic_6: "Alianza", form_topic_7: "Donación", form_topic_8: "Otra consulta",
+        form_submit: "Preparar correo ↗", form_status: "Este formulario abre tu aplicación de correo. No almacena mensajes.",
+        footer_desc: "Educar. Conectar. Crecer. Empoderar a los jóvenes para convertir su potencial en progreso significativo.", footer_explore: "Explorar", footer_about: "Acerca de AMYLI", footer_programmes: "Nuestros programas", footer_get_involved: "Involúcrate", footer_rights: "Todos los derechos reservados.", footer_back_top: "Volver arriba ↑"
+    },
+    ar: {
+        skip_link: "انتقل إلى المحتوى", announcement_text: "تمكين. تكييف. قيادة. نجاح.", announcement_link: "كن جزءاً من الرحلة ↗",
+        brand_subtitle: "مبادرة الإرشاد الأكاديمي وقيادة الشباب",
+        nav_home: "الرئيسية", nav_about: "من نحن", nav_about_who: "من نحن", nav_about_mission: "الرسالة والرؤية", nav_about_values: "قيمنا الأساسية", nav_about_journey: "رحلة تطورنا", nav_about_team: "فريقنا",
+        nav_programmes: "البرامج", nav_all_programs: "جميع البرامج", nav_explore: "استكشف", nav_all_explore: "جميع الموارد",
+        nav_get_involved: "شارك معنا", nav_contact: "اتصل بنا",
+        hero_eyebrow: "الإرشاد الأكاديمي وقيادة الشباب", hero_title: "تمكين العقول.<br><em>صياغة المستقبل.</em>", hero_desc: "بناء جيل من القادة الشباب ذوي المعرفة والثقة والمسؤولية الاجتماعية.",
+        hero_btn_discover: "اكتشف AMYLI ↗", hero_btn_programmes: "استكشف برامجنا", hero_label: "التعلم. القيادة. الفرصة.",
+        about_logo_text: "تمكين. تكييف. قيادة. نجاح.", about_kicker: "من نحن", about_title: "بناء قادة ذوي معرفة وثقة <em>ومسؤولية.</em>",
+        about_p1: "AMYLI (مبادرة الإرشاد الأكاديمي وقيادة الشباب) هي مبادرة تركز على الشباب، غير ربحية وغير سياسية، مكرسة لتمكين الطلاب والمهنيين الشباب والباحثين الطموحين والقادة الناشئين من خلال الإرشاد الأكاديمي والتعليم والتطوير الشخصي ودعم البحث وتدريب القيادة والمشاركة المجتمعية.",
+        about_p2: "نحن نؤمن بأن كل شاب يستحق الوصول إلى التوجيه والفرص والمعرفة وشبكات الدعم التي تمكنهم من إدراك إمكاناتهم. من خلال الإرشاد والبرامج التعليمية والندوات عبر الإنترنت وورش العمل وأنشطة البحث والشراكات التعاونية، تساعد AMYLI الشباب على التنقل في الحياة الأكاديمية وتطوير المهارات العملية وبناء روابط هادفة والاستعداد لمستقبل مهني وشخصي ناجح.",
+        about_link: "اكتشف مهمتنا ↗",
+        mission_kicker: "مهمتنا", mission_title: "تمكين الناس من خلال التعلم.", mission_desc: "تمكين الطلاب والمهنيين الشباب من خلال الإرشاد الأكاديمي الذي يمكن الوصول إليه، والتعليم، وتطوير البحث، وتدريب القيادة، والمشاركة المجتمعية، مما يمكنهم من الوصول إلى إمكاناتهم الكاملة والمساهمة بشكل هادف في المجتمع.",
+        vision_kicker: "رؤيتنا", vision_title: "جيل مستعد للقيادة.", vision_desc: "بناء جيل من المهنيين الشباب الأقوياء أكاديمياً والمسؤولين اجتماعياً وذوي التفكير الدولي والواثقين القادرين على المساهمة بشكل إيجابي في مجتمعاتهم وبلدانهم.",
+        values_kicker: "ما يوجهنا", values_title: "قيمنا <em>الأساسية.</em>", values_desc: "تشكل قيمنا كيفية تعلمنا وعملنا معاً وخدمتنا للمجتمعات ودعمنا للجيل القادم.",
+        value_1_title: "التميز الأكاديمي", value_1_desc: "تشجيع التعلم مدى الحياة والفضول الفكري والتفكير النقدي والسعي وراء المعرفة.",
+        value_2_title: "الإرشاد والدعم المتبادل", value_2_desc: "ربط الأفراد من خلال علاقات هادفة تعزز التوجيه والتشجيع وتبادل المعرفة والنمو الشخصي.",
+        value_3_title: "تمكين الشباب", value_3_desc: "تزويد الشباب بالثقة والمهارات والفرص لاتخاذ المبادرة وأن يصبحوا مساهمين نشطين في المجتمع.",
+        value_4_title: "الشمول وتكافؤ الفرص", value_4_desc: "تعزيز بيئة ترحيبية حيث يمكن للشباب من مختلف الخلفيات التعليمية والثقافية واللغوية والاجتماعية والاقتصادية المشاركة والتطور.",
+        value_5_title: "القيادة والمسؤولية", value_5_desc: "تشجيع اتخاذ القرارات الأخلاقية والمساءلة والمبادرة والقيادة الموجهة نحو الخدمة.",
+        value_6_title: "البحث والابتكار", value_6_desc: "دعم الفضول العلمي والتفكير القائم على الأدلة ومهارات البحث وتطوير حلول مبتكرة للتحديات الاجتماعية.",
+        value_7_title: "العمل التطوعي وخدمة المجتمع", value_7_desc: "إلهام الشباب لاستخدام وقتهم ومعرفتهم ومهاراتهم لدعم الآخرين وتحسين مجتمعاتهم.",
+        value_8_title: "النزاهة والاحترام", value_8_desc: "التزام الأخلاقيات المهنية والاحترام والتفاهم بين الثقافات.",
+        value_9_title: "الشراكة والتعاون الدولي", value_9_desc: "بناء علاقات بناءة بين الجامعات والمؤسسات التعليمية والمجتمعات المهنية والمجتمع المدني ومنظمات الشباب.",
+        programs_kicker: "برامجنا", programs_title: "تحويل الإمكانات إلى <em>تقدم.</em>", programs_desc: "نربط الشباب بالمعرفة والتوجيه والمهارات والشبكات الداعمة لتشجيع التطور الأكاديمي والمهني والشخصي.",
+        prog_1_title: "الإرشاد الأكاديمي", prog_1_summary: "ربط الطلاب بمرشدين ذوي خبرة للحصول على توجيه أكاديمي.", prog_1_desc: "تربط AMYLI الطلاب والمهنيين الشباب بمرشدين ذوي خبرة وباحثين ومعلمين وأفراد مؤهلين تأهيلاً مناسباً آخرين يمكنهم تقديم التوجيه بناءً على اهتمامات المشاركين وأهدافهم واحتياجاتهم التنموية.", prog_1_extra: "يعتمد نموذج الإرشاد لدينا على الثقة والاتساق والاحترام المتبادل. نحن نطابق بعناية بين المرشدين والموجهين الذين يمكنهم تقديم ليس فقط المشورة الأكاديمية ولكن أيضاً التوجيه المهني والتشجيع الشخصي. من خلال الاجتماعات المنتظمة وتحديد الأهداف المنظمة، نضمن أن يشعر كل مشارك بالدعم في رحلته الأكاديمية الفريدة.",
+        prog_2_title: "تكييف الطلاب", prog_2_summary: "مساعدة الطلاب على التنقل في الحياة الجامعية والبيئات الجديدة.", prog_2_desc: "يمكن أن يكون بدء الجامعة أو الدراسة في بلد جديد انتقالاً كبيراً. تساعد AMYLI الطلاب على فهم التوقعات الأكاديمية بشكل أفضل والتنقل في الحياة الجامعية وبناء الروابط الاجتماعية وتطوير الثقة للمشاركة بنشاط في مجتمعاتهم التعليمية.", prog_2_extra: "نقدم دعماً عملياً للطلاب الدوليين وأولئك الذين يدخلون التعليم العالي لأول مرة. يشمل ذلك جلسات التوجيه وورش العمل الثقافية وشبكات دعم الأقران. من خلال تعزيز الشعور بالانتماء، نساعد الطلاب على التغلب على التحديات الأولية والازدهار في بيئاتهم الجديدة.",
+        prog_3_title: "الصحة والرفاهية", prog_3_summary: "تعزيز الرفاهية العقلية وإدارة التوتر والعادات الصحية.", prog_3_desc: "ندرك أن النجاح الأكاديمي والنمو الشخصي مرتبطان ارتباطاً وثيقاً بالصحة البدنية والرفاهية العقلية والمرونة العاطفية والعادات اليومية الصحية. تعزز AMYLI الوعي بإدارة التوتر والوقاية من الإرهاق وإدارة الوقت وأنماط الحياة الصحية والثقة بالنفس والتوازن بين العمل والحياة.", prog_3_extra: "تشمل مبادرات الرفاهية لدينا ندوات عبر الإنترنت يقودها خبراء وجلسات اليقظة الذهنية وموارد حول إدارة الضغط الأكاديمي. نهدف إلى إزالة وصمة العار عن مناقشات الصحة العقلية وتزويد الشباب بالأدوات التي يحتاجونها للحفاظ على توازن صحي بين دراستهم وحياتهم الشخصية.",
+        prog_4_title: "تطوير البحث", prog_4_summary: "تعزيز الكتابة الأكاديمية والمنهجية والمهارات العلمية.", prog_4_desc: "تشجع AMYLI الشباب على تطوير اهتماماتهم البحثية وتعزيز مهارات الكتابة الأكاديمية والمشاركة في الأنشطة العلمية والفكرية.", prog_4_extra: "نقدم ورش عمل حول منهجيات البحث والنزاهة الأكاديمية والنشر. تتاح للمشاركين فرصة التعاون في المشاريع وتلقي الملاحظات حول عملهم والتواصل مع الباحثين البارزين، مما يضع أساساً قوياً للمساعي الأكاديمية والمهنية المستقبلية.",
+        journey_kicker: "رحلة تطوير AMYLI", journey_title: "من التعلم إلى <em>القيادة.</em>", journey_desc: "يسترشد نهجنا في تنمية الشباب بست مراحل مترابطة.",
+        journey_1_title: "تكييف", journey_1_desc: "فهم البيئات الجديدة والتنقل في التحديات وتطوير الثقة للمشاركة في المجتمعات الأكاديمية والاجتماعية.",
+        journey_2_title: "تعلم", journey_2_desc: "اكتساب المعرفة وتقوية المهارات الأكاديمية واحتضان التطوير الشخصي والمهني المستمر.",
+        journey_3_title: "تواصل", journey_3_desc: "بناء علاقات هادفة مع المرشدين والأقران والمعلمين والباحثين والشبكات المهنية.",
+        journey_4_title: "قيادة", journey_4_desc: "تطوير المبادرة والتواصل والعمل الجماعي واتخاذ القرارات والقيادة المسؤولة.",
+        journey_5_title: "خدمة", journey_5_desc: "تطبيق المعرفة والمهارات من خلال العمل التطوعي والمشاركة المجتمعية والأنشطة التي تفيد الآخرين.",
+        journey_6_title: "إرشاد", journey_6_desc: "مشاركة الخبرات ودعم الآخرين والمساهمة في ثقافة مستدامة للتوجيه والتعلم والنمو المتبادل.",
+        sdg_kicker: "مجالات مساهمتنا", sdg_title: "التعلم اليوم.<br><em>المساهمة غداً.</em>", sdg_desc: "تتوافق أنشطة AMYLI مع العديد من أهداف الأمم المتحدة العالمية.", sdg_extra: "من خلال مواءمة عملنا مع هذه الأهداف العالمية، نضمن أن إجراءاتنا المحلية تساهم في تأثير أوسع ومستدام. نقيس نجاحنا ليس فقط من خلال عدد المشاركين، ولكن من خلال مدى فعالية مساعدتنا في بناء عالم أكثر إنصافاً وتعليماً، ورعاية جيل يدرك دوره في المجتمع العالمي.",
+        sdg_4_title: "التعليم الجيد", sdg_4_desc: "دعم التعلم الشامل والتطوير الأكاديمي والإرشاد وفرص التعلم مدى الحياة.",
+        sdg_8_title: "العمل اللائق والنمو الاقتصادي", sdg_8_desc: "تعزيز قابلية التوظيف والاستعداد الوظيفي والمهارات المهنية وقيادة الشباب.",
+        sdg_10_title: "الحد من أوجه عدم المساواة", sdg_10_desc: "تعزيز الوصول الشامل إلى الإرشاد والموارد التعليمية وفرص التطوير الشخصي.",
+        sdg_16_title: "السلام والعدل والمؤسسات القوية", sdg_16_desc: "تشجيع القيادة المسؤولة والمساءلة والسلوك الأخلاقي والمشاركة المدنية البناءة.",
+        sdg_17_title: "عقد الشراكات لتحقيق الأهداف", sdg_17_desc: "تطوير التعاون بين المؤسسات التعليمية والمجتمع المدني والمجتمعات المهنية ومنظمات الشباب.",
+        sdg_3_title: "الصحة الجيدة والرفاهية", sdg_3_desc: "تعزيز الوعي الصحي والرفاهية العقلية وإدارة التوتر وأنماط الحياة الصحية.",
+        team_kicker: "الأشخاص وراء المهمة", team_title: "الأشخاص يصنعون <em>المهمة.</em>", team_desc: "تعرف على الأشخاص الذين يساعدون في دفع عمل AMYLI.", team_note: "يجب نشر معلومات الفريق التي تم التحقق منها فقط.", team_cta: "عرض الملف الشخصي ↗",
+        partners_kicker: "العمل معاً", partners_title: "شركاؤنا و <em>رعاتنا.</em>", partners_desc: "نتعاون مع المنظمات التي تشاركنا رؤيتنا لتمكين الشباب والتعليم.",
+        explore_title: "الموارد و <em>الفرص.</em>", explore_desc: "اكتشف منصاتنا الرقمية وموارد التعلم وكيف نساهم في الأهداف العالمية.",
+        involved_kicker: "انضم إلى المهمة", involved_title: "هناك مكان <em>للجميع.</em>", involved_desc: "سواء كنت ترغب في التعلم أو القيادة أو رد الجميل، يمكنك إحداث فرق مع AMYLI.",
+        involved_volunteer_title: "تطوع وإرشاد", involved_volunteer_desc: "شارك خبرتك أو وجه طالباً أو ساعدنا في تنظيم الأحداث. نحن نبحث دائماً عن مرشدين ومتطوعين مخلصين.", involved_volunteer_btn: "تطوع معنا",
+        involved_partner_title: "كن شريكاً لنا", involved_partner_desc: "نتعاون مع الجامعات والمجتمع المدني والمنظمات المهنية لتوسيع تأثيرنا.", involved_partner_btn: "استكشف الشراكات",
+        involved_donate_title: "ادعم عملنا", involved_donate_desc: "تساعدنا مساهمتك المالية في الحفاظ على برامجنا التعليمية متاحة للجميع، بغض النظر عن خلفياتهم.", involved_donate_btn: "تبرع أو ادعم",
+        contact_kicker: "اتصل بنا", contact_title: "لنبدأ <br><em>محادثة.</em>", contact_desc: "هل لديك سؤال حول الإرشاد أو البحث أو التطوع أو الأنشطة التعليمية أو شراكة محتملة؟ اتصل بـ AMYLI.",
+        contact_email_title: "راسلنا", contact_phone_title: "اتصل بنا", contact_social_title: "تابع AMYLI",
+        form_title: "أرسل لنا رسالة", form_desc: "أكمل النموذج لإعداد بريد إلكتروني في تطبيق البريد الإلكتروني الخاص بك.",
+        form_name: "اسمك", form_email: "بريدك الإلكتروني", form_topic: "الموضوع", form_message: "الرسالة", form_topic_placeholder: "حدد موضوعاً",
+        form_topic_1: "الإرشاد الأكاديمي", form_topic_2: "تكييف الطلاب", form_topic_3: "الصحة والرفاهية", form_topic_4: "تطوير البحث", form_topic_5: "التطوع", form_topic_6: "شراكة", form_topic_7: "تبرع", form_topic_8: "استفسار آخر",
+        form_submit: "إعداد البريد الإلكتروني ↗", form_status: "يفتح هذا النموذج تطبيق البريد الإلكتروني الخاص بك. لا يخزن الرسائل.",
+        footer_desc: "تعليم. تواصل. نمو. تمكين الشباب لتحويل إمكاناتهم إلى تقدم هادف.", footer_explore: "استكشف", footer_about: "حول AMYLI", footer_programmes: "برامجنا", footer_get_involved: "شارك معنا", footer_rights: "جميع الحقوق محفوظة.", footer_back_top: "العودة إلى الأعلى ↑"
     }
 };
 
@@ -733,9 +416,7 @@ function initializeLanguage() {
     if (!buttons.length) return;
 
     let savedLanguage = "en";
-    try {
-        savedLanguage = localStorage.getItem("amyli-language") || "en";
-    } catch (error) { /* Default to English */ }
+    try { savedLanguage = localStorage.getItem("amyli-language") || "en"; } catch (e) {}
 
     setLanguage(savedLanguage);
 
@@ -746,12 +427,16 @@ function initializeLanguage() {
     });
 
     function setLanguage(language) {
-        const supported = ["en", "ru", "fr", "es"];
-        if (!supported.includes(language)) {
-            language = "en";
-        }
+        const supported = ["en", "ru", "fr", "es", "ar"];
+        if (!supported.includes(language)) language = "en";
 
         document.documentElement.lang = language;
+        
+        if (language === "ar") {
+            document.documentElement.dir = "rtl";
+        } else {
+            document.documentElement.dir = "ltr";
+        }
 
         document.querySelectorAll("[data-i18n]").forEach((element) => {
             const key = element.dataset.i18n;
@@ -759,6 +444,44 @@ function initializeLanguage() {
                 element.innerHTML = translations[language][key];
             }
         });
+
+        document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+            const key = element.dataset.i18nPlaceholder;
+            if (translations[language] && translations[language][key]) {
+                element.placeholder = translations[language][key];
+            }
+        });
+
+        const topicSelect = document.getElementById("topic");
+        if (topicSelect) {
+            const currentValue = topicSelect.value;
+            topicSelect.innerHTML = ''; 
+            
+            const placeholderOption = document.createElement("option");
+            placeholderOption.value = "";
+            placeholderOption.textContent = translations[language].form_topic_placeholder;
+            topicSelect.appendChild(placeholderOption);
+
+            const topics = [
+                { val: "Academic mentorship", key: "form_topic_1" },
+                { val: "Student adaptation", key: "form_topic_2" },
+                { val: "Health & wellbeing", key: "form_topic_3" },
+                { val: "Research development", key: "form_topic_4" },
+                { val: "Volunteering", key: "form_topic_5" },
+                { val: "Partnership", key: "form_topic_6" },
+                { val: "Donation", key: "form_topic_7" },
+                { val: "Other", key: "form_topic_8" }
+            ];
+
+            topics.forEach(topic => {
+                const option = document.createElement("option");
+                option.value = topic.val;
+                option.textContent = translations[language][topic.key];
+                topicSelect.appendChild(option);
+            });
+
+            if (currentValue) topicSelect.value = currentValue;
+        }
 
         const activeProfile = document.querySelector(".profile-overlay");
         if (activeProfile && window.currentActiveProfile) {
@@ -774,9 +497,7 @@ function initializeLanguage() {
             button.setAttribute("aria-pressed", String(selected));
         });
 
-        try {
-            localStorage.setItem("amyli-language", language);
-        } catch (error) { /* Continue without browser storage */ }
+        try { localStorage.setItem("amyli-language", language); } catch (e) {}
     }
 }
 
@@ -800,7 +521,8 @@ function initializeTeam() {
         en: { team_role_1: "Leadership and coordination", team_bio_1: "Responsible for overall strategy and operations.", team_role_2: "Academic mentorship", team_bio_2: "Guides students through their academic journey.", team_role_3: "Research and academic development", team_bio_3: "Supports research initiatives and academic writing.", team_role_4: "Youth leadership", team_bio_4: "Develops leadership programmes for young people.", team_role_5: "Programmes and activities", team_bio_5: "Coordinates events and educational activities.", team_role_6: "Community engagement", team_bio_6: "Builds partnerships and community relations." },
         ru: { team_role_1: "Лидерство и координация", team_bio_1: "Отвечает за общую стратегию и операции.", team_role_2: "Академическое наставничество", team_bio_2: "Сопровождает студентов в их академическом пути.", team_role_3: "Исследования и академическое развитие", team_bio_3: "Поддерживает исследовательские инициативы и академическое письмо.", team_role_4: "Молодежное лидерство", team_bio_4: "Разрабатывает программы лидерства для молодежи.", team_role_5: "Программы и мероприятия", team_bio_5: "Координирует мероприятия и образовательные активности.", team_role_6: "Вовлечение сообщества", team_bio_6: "Строит партнерства и отношения с сообществом." },
         fr: { team_role_1: "Leadership et coordination", team_bio_1: "Responsable de la stratégie globale et des opérations.", team_role_2: "Mentorat académique", team_bio_2: "Guide les étudiants tout au long de leur parcours académique.", team_role_3: "Recherche et développement académique", team_bio_3: "Soutient les initiatives de recherche et la rédaction académique.", team_role_4: "Leadership des jeunes", team_bio_4: "Développe des programmes de leadership pour les jeunes.", team_role_5: "Programmes et activités", team_bio_5: "Coordonne les événements et les activités éducatives.", team_role_6: "Engagement communautaire", team_bio_6: "Établit des partenariats et des relations communautaires." },
-        es: { team_role_1: "Liderazgo y coordinación", team_bio_1: "Responsable de la estrategia general y las operaciones.", team_role_2: "Mentoría académica", team_bio_2: "Guía a los estudiantes a lo largo de su trayectoria académica.", team_role_3: "Investigación y desarrollo académico", team_bio_3: "Apoya iniciativas de investigación y redacción académica.", team_role_4: "Liderazgo juvenil", team_bio_4: "Desarrolla programas de liderazgo para jóvenes.", team_role_5: "Programas y actividades", team_bio_5: "Coordina eventos y actividades educativas.", team_role_6: "Compromiso comunitario", team_bio_6: "Construye alianzas y relaciones comunitarias." }
+        es: { team_role_1: "Liderazgo y coordinación", team_bio_1: "Responsable de la estrategia general y las operaciones.", team_role_2: "Mentoría académica", team_bio_2: "Guía a los estudiantes a lo largo de su trayectoria académica.", team_role_3: "Investigación y desarrollo académico", team_bio_3: "Apoya iniciativas de investigación y redacción académica.", team_role_4: "Liderazgo juvenil", team_bio_4: "Desarrolla programas de liderazgo para jóvenes.", team_role_5: "Programas y actividades", team_bio_5: "Coordina eventos y actividades educativas.", team_role_6: "Compromiso comunitario", team_bio_6: "Construye alianzas y relaciones comunitarias." },
+        ar: { team_role_1: "القيادة والتنسيق", team_bio_1: "مسؤول عن الاستراتيجية العامة والعمليات.", team_role_2: "الإرشاد الأكاديمي", team_bio_2: "يوجه الطلاب خلال رحلتهم الأكاديمية.", team_role_3: "البحث والتطوير الأكاديمي", team_bio_3: "يدعم المبادرات البحثية والكتابة الأكاديمية.", team_role_4: "قيادة الشباب", team_bio_4: "يطور برامج القيادة للشباب.", team_role_5: "البرامج والأنشطة", team_bio_5: "ينسق الأحداث والأنشطة التعليمية.", team_role_6: "المشاركة المجتمعية", team_bio_6: "يبني الشراكات والعلاقات المجتمعية." }
     };
 
     Object.keys(teamTranslations).forEach(lang => {
@@ -864,26 +586,19 @@ function initializeTeam() {
         card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(); } });
     });
 
-    // Carousel Navigation Logic
     const prevBtn = document.getElementById("teamPrevBtn");
     const nextBtn = document.getElementById("teamNextBtn");
 
     if (prevBtn && nextBtn) {
-        // Dynamically calculate scroll amount based on screen size
         const getScrollAmount = () => {
-            if (window.innerWidth <= 380) return 210; // Very small phones
-            if (window.innerWidth <= 540) return 240; // Small phones
-            if (window.innerWidth <= 760) return 260; // Tablets
-            return 280; // Desktops
+            if (window.innerWidth <= 380) return 210;
+            if (window.innerWidth <= 540) return 240;
+            if (window.innerWidth <= 760) return 260;
+            return 280;
         };
 
-        prevBtn.addEventListener("click", () => {
-            teamRow.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
-        });
-        
-        nextBtn.addEventListener("click", () => {
-            teamRow.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
-        });
+        prevBtn.addEventListener("click", () => teamRow.scrollBy({ left: -getScrollAmount(), behavior: "smooth" }));
+        nextBtn.addEventListener("click", () => teamRow.scrollBy({ left: getScrollAmount(), behavior: "smooth" }));
 
         const updateButtons = () => {
             const maxScrollLeft = teamRow.scrollWidth - teamRow.clientWidth;
@@ -892,14 +607,11 @@ function initializeTeam() {
         };
         
         teamRow.addEventListener("scroll", updateButtons);
-        setTimeout(updateButtons, 100); // Initial check
+        setTimeout(updateButtons, 100);
         window.addEventListener("resize", updateButtons);
     }
 }
 
-/* ==========================================================================
-   TEAM PROFILE MODAL
-   ========================================================================== */
 function openProfile(person, opener) {
     closeProfile();
     const overlay = document.createElement("div");
@@ -997,54 +709,27 @@ function closeProfile() {
 }
 
 /* ==========================================================================
-   PROGRAM MODALS
+   GET INVOLVED BUTTONS LOGIC
    ========================================================================== */
-function initializeProgramModals() {
-    const modalOverlay = document.getElementById("programModalOverlay");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalDesc = document.getElementById("modalDesc");
-    const modalIcon = document.getElementById("modalIcon");
-    const closeModalBtn = document.getElementById("closeProgramModal");
-    const readMoreBtns = document.querySelectorAll(".read-more-btn");
+function initializeInvolvedButtons() {
+    const involvedBtns = document.querySelectorAll(".involved-cta");
+    const contactSection = document.getElementById("contact");
+    const topicSelect = document.getElementById("topic");
 
-    if (!modalOverlay || !closeModalBtn) return;
+    if (!involvedBtns.length || !contactSection || !topicSelect) return;
 
-    readMoreBtns.forEach(btn => {
+    involvedBtns.forEach(btn => {
         btn.addEventListener("click", () => {
-            const targetId = btn.dataset.target;
-            const descElement = document.getElementById(`${targetId}-desc`);
-            
-            // Find the parent card to get the title and icon
-            const card = btn.closest(".program-card");
-            const title = card.querySelector("h3").innerHTML;
-            const icon = card.querySelector(".program-icon").innerHTML;
-            
-            // Populate modal
-            modalTitle.innerHTML = title;
-            modalDesc.innerHTML = descElement.innerHTML;
-            modalIcon.innerHTML = icon;
-            
-            // Show modal
-            modalOverlay.classList.add("active");
-            document.body.style.overflow = "hidden";
+            contactSection.scrollIntoView({ behavior: "smooth" });
+            const subject = btn.dataset.subject;
+            if (subject) {
+                setTimeout(() => {
+                    topicSelect.value = subject;
+                    topicSelect.style.boxShadow = "0 0 0 3px rgba(22, 139, 210, 0.5)";
+                    setTimeout(() => { topicSelect.style.boxShadow = ""; }, 1000);
+                }, 500);
+            }
         });
-    });
-
-    const closeModal = () => {
-        modalOverlay.classList.remove("active");
-        document.body.style.overflow = "";
-    };
-
-    closeModalBtn.addEventListener("click", closeModal);
-    
-    modalOverlay.addEventListener("click", (e) => {
-        if (e.target === modalOverlay) closeModal();
-    });
-
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modalOverlay.classList.contains("active")) {
-            closeModal();
-        }
     });
 }
 
@@ -1065,7 +750,7 @@ function initializeContactForm() {
 
         const name = document.getElementById("fullName")?.value.trim() || "";
         const email = document.getElementById("email")?.value.trim() || "";
-        const topic = document.getElementById("topic")?.value.trim() || "";
+        const topic = document.getElementById("topic")?.value || "";
         const message = document.getElementById("message")?.value.trim() || "";
 
         if (!name || !email || !topic || !message) {
@@ -1080,7 +765,10 @@ function initializeContactForm() {
             return;
         }
 
-        const subject = "AMYLI enquiry: " + topic;
+        const topicSelect = document.getElementById("topic");
+        const topicText = topicSelect.options[topicSelect.selectedIndex].text;
+
+        const subject = "AMYLI enquiry: " + topicText;
         const body = ["Hello AMYLI,", "", message, "", "Name: " + name, "Reply email: " + email, "", "Sent through the AMYLI website contact form."].join("\n");
         const mailtoUrl = "mailto:" + recipient + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 

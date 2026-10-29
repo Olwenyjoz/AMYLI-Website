@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore | AMYLI</title>
+    <link rel="icon" type="image/png" href="assets/images/logo-removebg.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- Header and navigation (Same as index) -->
+<header class="site-header" id="top">
+    <div class="container nav-wrap">
+        <a class="brand" href="index.html" aria-label="AMYLI home">
+            <img src="assets/images/amyli-logo.png" alt="AMYLI logo">
+            <span class="brand-text">
+                <strong>AMYLI</strong>
+                <small data-i18n="brand_subtitle">Academic Mentorship &amp; Youth Leadership Initiative</small>
+            </span>
+        </a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mainNav">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+            <a href="index.html" data-i18n="nav_home">Home</a>
+            <div class="nav-dropdown">
+                <button class="nav-drop-trigger" type="button" aria-expanded="false">
+                    <span data-i18n="nav_about">About</span><span class="chevron" aria-hidden="true"></span>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="index.html#about" data-i18n="nav_about_who">Who we are</a>
+                    <a href="index.html#mission" data-i18n="nav_about_mission">Mission and vision</a>
+                    <a href="index.html#values" data-i18n="nav_about_values">Our core values</a>
+                    <a href="index.html#journey" data-i18n="nav_about_journey">Our development journey</a>
+                    <a href="index.html#team" data-i18n="nav_about_team">Our team</a>
+                </div>
+            </div>
+            <a href="programs.html" data-i18n="nav_programmes">Programmes</a>
+            <a href="explore.html" data-i18n="nav_explore">Explore</a>
+            <a href="index.html#get-involved" data-i18n="nav_get_involved">Get involved</a>
+            <a href="index.html#contact" data-i18n="nav_contact">Contact</a>
+        </nav>
+        <div class="nav-tools">
+            <div class="language-switch" aria-label="Select language">
+                <button type="button" class="language-button active" data-language="en" aria-pressed="true">ENG</button>
+                <button type="button" class="language-button" data-language="ru" aria-pressed="false">RUS</button>
+                <button type="button" class="language-button" data-language="fr" aria-pressed="false">FRE</button>
+                <button type="button" class="language-button" data-language="es" aria-pressed="false">ESP</button>
+                <button type="button" class="language-button" data-language="ar" aria-pressed="false">ARA</button>
+            </div>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">☾</button>
+        </div>
+    </div>
+</header>
+
+<main id="main">
+    <!-- Page Breadcrumb -->
+    <div class="container page-nav">
+        <a href="index.html" class="back-link">
+            <span class="arrow">←</span> <span data-i18n="nav_home">Home</span> / <span class="current-page" data-i18n="nav_explore">Explore</span>
+        </a>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1600&q=80');">
+        <div class="container page-hero-content">
+            <h1 data-i18n="explore_title">Resources & <em>Opportunities.</em></h1>
+            <p data-i18n="explore_desc">Discover our digital platforms, learning resources, and how we are contributing to global goals.</p>
+        </div>
+    </section>
+
+    <!-- Detailed Explore List -->
+    <section class="section">
+        <div class="container">
+            
+            <!-- Resource 1 -->
+            <article class="content-block">
+                <div class="content-text">
+                    <h2 data-i18n="nav_exp_platform">Digital platform</h2>
+                    <p data-i18n="platform_p1">AMYLI aims to develop a digital platform that makes mentorship, learning, research development and personal growth more accessible and coordinated.</p>
+                    <p data-i18n="platform_p2">The proposed platform will bring together participant profiles, mentor matching, personalised development plans, educational resources, research support, and progress monitoring. This centralized hub will allow users to track their growth, connect with the right people, and access materials tailored to their specific needs, regardless of their geographical location.</p>
+                </div>
+                <div class="content-image">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" alt="Digital Platform">
+                </div>
+            </article>
+
+            <!-- Resource 2 -->
+            <article class="content-block reverse">
+                <div class="content-image">
+                    <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80" alt="Learning Resources">
+                </div>
+                <div class="content-text">
+                    <h2 data-i18n="nav_exp_stories">Learning resources</h2>
+                    <p data-i18n="stories_desc">Explore the learning themes at the heart of AMYLI's work. This section will feature approved articles, stories, guides and educational resources as they become available.</p>
+                    <p data-i18n="stories_extra">We believe in open access to knowledge. Here, you will find a growing library of materials covering topics from study strategies to career readiness. Whether you are looking for a quick guide on writing a CV or a deep dive into research methodologies, our resources are designed to support self-paced learning and empower you to take charge of your development.</p>
+                </div>
+            </article>
+
+            <!-- Resource 3 -->
+            <article class="content-block">
+                <div class="content-text">
+                    <h2 data-i18n="nav_exp_impact">Global Goals Contribution</h2>
+                    <p data-i18n="sdg_desc">AMYLI's activities align with several United Nations Global Goals. We focus on SDG 4 (Quality Education), SDG 8 (Decent Work), SDG 10 (Reduced Inequalities), SDG 16 (Peace & Justice), SDG 17 (Partnerships), and SDG 3 (Good Health).</p>
+                    <p data-i18n="sdg_extra">By aligning our work with these global objectives, we ensure that our local actions contribute to a broader, sustainable impact. We measure our success not just by the number of participants, but by how effectively we are helping to build a more equitable and educated world, fostering a generation that is aware of its role in global society.</p>
+                </div>
+                <div class="content-image">
+                    <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80" alt="SDG Contribution">
+                </div>
+            </article>
+
+        </div>
+    </section>
+</main>
+
+<!-- Footer (Same as index) -->
+<footer class="site-footer">
+    <div class="container footer-main">
+        <div class="footer-brand">
+            <a class="brand brand-footer" href="index.html" aria-label="AMYLI home">
+                <img src="assets/images/amyli-logo.png" alt="AMYLI logo">
+                <span class="brand-text">
+                    <strong>AMYLI</strong>
+                    <small data-i18n="brand_subtitle">Academic Mentorship &amp; Youth Leadership Initiative</small>
+                </span>
+            </a>
+            <p data-i18n="footer_desc">Educate. Connect. Grow. Empowering young people to turn their potential into meaningful progress.</p>
+            <a class="footer-email" href="mailto:info.amyli26@gmail.com">info.amyli26@gmail.com</a>
+        </div>
+        <div class="footer-links">
+            <h3 data-i18n="footer_explore">Explore</h3>
+            <a href="index.html#about" data-i18n="footer_about">About AMYLI</a>
+            <a href="index.html#mission" data-i18n="nav_about_mission">Mission and vision</a>
+            <a href="index.html#values" data-i18n="nav_about_values">Core values</a>
+        </div>
+        <div class="footer-links">
+            <h3 data-i18n="footer_programmes">Our programmes</h3>
+            <a href="programs.html" data-i18n="nav_all_programs">All Programmes</a>
+        </div>
+        <div class="footer-links">
+            <h3 data-i18n="footer_get_involved">Get involved</h3>
+            <a href="explore.html" data-i18n="nav_all_explore">All Resources</a>
+            <a href="index.html#contact" data-i18n="nav_contact">Contact us</a>
+        </div>
+    </div>
+    <div class="container footer-bottom">
+        <p>© <span id="currentYear"></span> AMYLI. <span data-i18n="footer_rights">All rights reserved.</span></p>
+        <a href="#top" data-i18n="footer_back_top">Back to top ↑</a>
+    </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
+
+</body>
+</html>
