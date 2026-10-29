@@ -10,7 +10,8 @@ You can view the live version of the website here:
 **[https://YOUR-USERNAME.github.io/amyli-website/](https://YOUR-USERNAME.github.io/amyli-website/)**
 *(Note: Replace this link with your actual GitHub Pages URL once deployed).*
 
-##📂 Folder Structure
+
+## 📂 Folder Structure
 amyli-website/
 │
 ├── assets/
