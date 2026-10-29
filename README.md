@@ -12,20 +12,22 @@ You can view the live version of the website here:
 
 
 ## 📂 Folder Structure
+```text
 amyli-website/
 │
 ├── assets/
-│   └── images/         # Local images (logos, hero backgrounds, team photos)
-│       ├── amyli-logo.png
-│       ├── who-we-are.jpg
-│       └── Global Learning Horizons Banner.png
+│   └── images/                      # Local images and visual assets
+│       ├── amyli-logo.png           # Main brand logo
+│       ├── logo-removebg.png        # Favicon / transparent logo
+│       ├── who-we-are.jpg           # About section / Hero image
+│       └── Global Learning Horizons Banner.png # Hero background
 │
-├── index.html          # Main homepage (Hero, About, Team, Contact, etc.)
-├── programs.html       # Dedicated page for all detailed programmes
-├── explore.html        # Dedicated page for resources, platform, and SDGs
-├── styles.css          # All styles, variables, media queries, and animations
-├── script.js           # Navigation, i18n translations, modals, and form logic
-└── README.md           # Project documentation
+├── index.html                       # Homepage (Hero, About, Team, Contact, etc.)
+├── programs.html                    # Dedicated page for detailed programmes
+├── explore.html                     # Dedicated page for resources & SDGs
+├── styles.css                       # All styles, variables, media queries
+├── script.js                        # Nav, i18n, modals, carousel, form logic
+└── README.md                        # Project documentation
 
 ## ✨ Key Features
 
